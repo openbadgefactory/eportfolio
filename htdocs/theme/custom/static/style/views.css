@@ -1,0 +1,14 @@
+/**
+ * Views stylesheet - for Custom theme.
+ *
+ * @copyright  For copyright information on Mahara, please see the README file distributed with this software.
+ * This file is licensed under the same terms as Mahara itself
+ */
+/******************** Collection navigation ********************/
+ul.colnav li a,
+ul.colnav li a:link,
+ul.colnav li a:visited,
+ul.colnav li a:active {
+	color: #FFFFFF;
+	background: #F6871F;
+}

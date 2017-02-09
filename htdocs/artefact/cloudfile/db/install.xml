@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="lib/db" VERSION="20060926" COMMENT="XMLDB file for Mahara files plugin tables"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../lib/xmldb/xmldb.xsd"
+>
+<TABLES>
+    <TABLE NAME="artefact_cloudfile">
+        <FIELDS>
+            <FIELD NAME="artefact"  TYPE="int"  LENGTH="10" NOTNULL="true" />
+            <FIELD NAME="type"      TYPE="text" NOTNULL="true" />
+            <FIELD NAME="remote_id" TYPE="text" NOTNULL="false" />
+            <FIELD NAME="src"       TYPE="text" NOTNULL="false" />
+            <FIELD NAME="checksum"  TYPE="text" NOTNULL="false" />
+            <FIELD NAME="dirty"     TYPE="int"  LENGTH="1" NOTNULL="false" />
+        </FIELDS>
+        <KEYS>
+            <KEY NAME="cloudartefactpk" TYPE="primary" FIELDS="artefact" />
+        </KEYS>
+    </TABLE>
+    <TABLE NAME="artefact_cloudfile_config">
+        <FIELDS>
+            <FIELD NAME="usr"   TYPE="int"  LENGTH="10" NOTNULL="true" />
+            <FIELD NAME="type"  TYPE="char" LENGTH="20" NOTNULL="true" />
+            <FIELD NAME="value" TYPE="text" NOTNULL="false" />
+        </FIELDS>
+        <KEYS>
+            <KEY NAME="cloudartefactconfigpk" TYPE="primary" FIELDS="usr,type" />
+        </KEYS>
+    </TABLE>
+</TABLES>
+</XMLDB>

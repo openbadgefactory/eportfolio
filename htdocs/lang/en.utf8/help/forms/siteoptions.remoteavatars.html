@@ -1,0 +1,20 @@
+<!-- @license http://www.gnu.org/copyleft/gpl.html GNU GPL version 3 or later -->
+<!-- @copyright For copyright information on Mahara, please see the README file distributed with this software. -->
+<h3>Display remote avatars</h3>
+
+<p>If this option is enabled,
+the <a href="http://www.gravatar.com">Gravatar</a> online service will be used to display profile pictures for users who don't have one set. This allows users to set their profile picture once on the Gravatar site instead of having to do it on every Mahara and online service individually. If Gravatar does not have a picture for that user, then the default Mahara picture will be shown.</p>
+
+<h4>Reasons to turn it off</h4>
+
+<p>This option should be disabled in installations such as locked-down
+intranets where <b>users do not have access to the wider Internet</b>. Using Gravatar in such an environment would simply add extra delays.</p>
+
+<p>Also, for <b>sites delivered over https</b>, enabling Gravatar profile pictures might trigger security warnings on some browsers. This is due to the fact that Gravatar images are served via normal unencrypted http.</p>
+
+<h4>Custom avatar server</h4>
+
+<p>If you have a custom avatar server which implements the Gravatar
+protocol, you may specify its base URL in your config.php file:</p>
+
+<p><code>$cfg->remoteavatarbaseurl = 'http://example.com/avatar/';</code></p>

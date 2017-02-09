@@ -1,0 +1,845 @@
+/**
+ * Mahara: Electronic portfolio, weblog, resume builder and social networking
+ * Copyright (C) 2006-2008 Catalyst IT Ltd (http://www.catalyst.net.nz)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @package    mahara
+ * @subpackage artefact-epsp
+ * @author     Discendum Ltd
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL
+ * @copyright  (C) 2015 Discendum Ltd http://discendum.com
+ * @copyright  (C) 2006-2008 Catalyst IT Ltd http://catalyst.net.nz
+ *
+ */
+* {
+  box-sizing: border-box;
+}
+.epsp-field {
+  overflow: hidden;
+  margin: 1.5em 0 0 0;
+}
+.epsp-field h2 {
+  font-size: 1.8em;
+  font-family: inherit;
+}
+.epsp-field h3 {
+  font-size: 1em !important;
+  font-family: inherit;
+  text-transform: uppercase;
+  font-weight: bold !important;
+}
+.epsp-field h2 a,
+.epsp-field h3 a {
+  font-size: inherit;
+  color: inherit;
+  line-height: inherit !important;
+}
+.epsp-field ul.mark-as-completed {
+  list-style: none;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+.epsp-field ul.mark-as-completed li {
+  margin: 0 15px 0 0;
+  float: left;
+}
+.epsp-field ul.mark-as-completed li div span.tick:before {
+  font-family: FontAwesome;
+  padding-right: 2px;
+  font-size: 1.2em;
+  width: 1em;
+  display: inline-block;
+}
+.epsp-field ul.mark-as-completed li div.complete span.tick:before {
+  content: "\f046";
+  color: #00af50;
+}
+.epsp-field ul.mark-as-completed li div.incomplete span.tick:before {
+  content: "\f096";
+  color: #d33;
+}
+.epsp-field ul.mark-as-completed li div.editable {
+  cursor: pointer;
+}
+.epsp-field ul.mark-as-completed li div span.name {
+  display: block;
+  color: #999;
+  font-size: 0.9em;
+  font-style: italic;
+}
+@media (max-width: 991px) {
+  .epsp-field ul.mark-as-completed {
+    margin-left: 1.2em;
+    padding-top: 5px;
+  }
+}
+.epsp-field.epsp-field-textfield,
+.epsp-field.epsp-field-goal {
+  /*margin-left: 2em;*/
+}
+.epsp-field.epsp-field-textfield + .epsp-field-textfield,
+.epsp-field.epsp-field-goal + .epsp-field-textfield,
+.epsp-field.epsp-field-textfield + .epsp-field-goal,
+.epsp-field.epsp-field-goal + .epsp-field-goal {
+  margin-top: 8px;
+}
+.epsp-field.template-field {
+  /*margin-top: 0;*/
+}
+.epsp-field.epsp-field-completabletitle .mark-as-completed {
+  padding-top: 7px;
+}
+.epsp-field .epsp-field-titlearea p {
+  float: left;
+  color: #027499 !important;
+  margin: 0;
+}
+.epsp-field .epsp-field-titlearea p span.title {
+  font-size: inherit;
+  color: inherit;
+  margin: inherit;
+}
+.epsp-field .epsp-field-titlearea p.completable {
+  margin: 0 20px 0 0;
+}
+.epsp-field .completable {
+  float: left;
+  margin: 0 20px 0 0;
+}
+.epsp-field .toggle {
+  cursor: pointer;
+}
+.epsp-field .toggle:before {
+  content: "\f054";
+  font-family: FontAwesome;
+  font-size: 1em;
+  padding-right: 5px;
+  width: 1em;
+  float: left;
+}
+.epsp-field .toggle.open:before {
+  content: "\f078";
+}
+.epsp-field .epsp-field-contentarea {
+  clear: both;
+  padding: .5em;
+  margin: .5em 0 0 20px;
+  background: #f1f4f9;
+}
+.epsp-field .epsp-field-contentarea dl {
+  margin: 0;
+}
+.epsp-field .epsp-field-contentarea dt {
+  float: left;
+  clear: left;
+  width: 150px;
+  text-align: right;
+  font-weight: bold;
+}
+.epsp-field .epsp-field-contentarea dd {
+  margin: 0 0 0 170px;
+  padding: 0 0 .5em 0;
+}
+.epsp-field.epsp-field-textfield .epsp-field-contentarea {
+  padding-left: 1em;
+}
+#gridder-pagination {
+  z-index: 99;
+}
+.toggle-subfields {
+  float: left;
+  cursor: pointer;
+}
+.toggle-subfields span.icon {
+  display: block;
+  float: left;
+}
+.toggle-subfields span.icon:before {
+  content: "\f054";
+  font-family: FontAwesome;
+  font-size: 1em;
+}
+.toggle-subfields.open span.icon:before {
+  content: "\f078";
+}
+.toggle-subfields span.text {
+  display: block;
+  margin-left: 1.2em;
+}
+/**
+ * ePSP field comments
+ */
+.field-feedback .form-row {
+  margin-bottom: 5px;
+}
+.field-feedback .comments {
+  margin-bottom: 1em;
+  max-height: 200px;
+  overflow: auto;
+}
+.field-feedback .comments .field-comment {
+  padding: 5px;
+}
+.field-feedback .comments .field-comment:nth-child(odd) {
+  background: #e6edf3;
+}
+.field-feedback .comments .field-comment:nth-child(even) {
+  background: #F0F4FD;
+}
+.field-feedback .comments .field-comment .detail {
+  overflow: hidden;
+}
+.field-feedback .comments .field-comment .detail.highlight {
+  -webkit-animation: highlight 1.5s;
+  -moz-animation: highlight 1.5s;
+  -o-animation: highlight 1.5s;
+  animation: highlight 1.5s;
+}
+.field-feedback span.mceEditor {
+  width: 100%;
+}
+.columns2 .epsp-field-titlearea p,
+.columns3 .epsp-field-titlearea p {
+  float: none;
+  margin-right: 0;
+}
+.columns2 .epsp-field-titlearea p.completable,
+.columns3 .epsp-field-titlearea p.completable {
+  margin-right: 0;
+}
+.columns2 ul.mark-as-completed,
+.columns3 ul.mark-as-completed {
+  margin-left: 15px;
+  padding-top: 5px;
+}
+.columns2 ul.mark-as-completed li,
+.columns3 ul.mark-as-completed li {
+  /*float: none;*/
+}
+.columns2 .epsp-field-contentarea dt,
+.columns3 .epsp-field-contentarea dt {
+  float: none;
+  width: auto;
+  text-align: left;
+}
+.columns2 .epsp-field-contentarea dd,
+.columns3 .epsp-field-contentarea dd {
+  margin: 0;
+  padding: 0 0 .5em 0;
+}
+.columns2 .toggle-subfields,
+.columns3 .toggle-subfields {
+  float: none;
+}
+.loading-spinner {
+  margin: 4px 0 0 10px;
+  display: inline-block;
+  font-family: FontAwesome;
+  -webkit-animation: spin 1s infinite linear;
+  -moz-animation: spin 1s infinite linear;
+  -o-animation: spin 1s infinite linear;
+  animation: spin 1s infinite linear;
+}
+.loading-spinner:before {
+  content: "\f110";
+}
+@-o-keyframes spin {
+  from {
+    -o-transform: rotate(0deg);
+  }
+  to {
+    -o-transform: rotate(359deg);
+  }
+}
+@-ms-keyframes spin {
+  from {
+    -ms-transform: rotate(0deg);
+  }
+  to {
+    -ms-transform: rotate(360deg);
+  }
+}
+@-moz-keyframes spin {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-o-keyframes highlight {
+  0% {
+    background: #0F77A0;
+  }
+  100% {
+    background: none;
+  }
+}
+@-ms-keyframes highlight {
+  0% {
+    background: #0F77A0;
+  }
+  100% {
+    background: none;
+  }
+}
+@-moz-keyframes highlight {
+  0% {
+    background: #0F77A0;
+  }
+  100% {
+    background: none;
+  }
+}
+@-webkit-keyframes highlight {
+  0% {
+    background: #0F77A0;
+  }
+  100% {
+    background: none;
+  }
+}
+@keyframes highlight {
+  0% {
+    background: #0F77A0;
+  }
+  100% {
+    background: none;
+  }
+}
+/*progress bar copied from bootstrap 3.1.1*/
+.bs-grid.progress .latest .progress-wrapper,
+.plan.ownprogress .latest .progress-wrapper {
+  width: 75%;
+  margin-right: 5px;
+}
+.bs-grid.progress .progress-wrapper,
+.plan.ownprogress .progress-wrapper {
+  width: 80%;
+  float: left;
+  max-width: 260px;
+  margin-right: 5px;
+}
+.bs-grid.progress .pull-right,
+.plan.ownprogress .pull-right {
+  margin-left: 10px;
+}
+@media (max-width: 992px) {
+  .bs-grid.progress .pull-right,
+  .plan.ownprogress .pull-right {
+    float: left;
+  }
+}
+.bs-grid.progress .progress,
+.plan.ownprogress .progress {
+  position: relative;
+  height: 20px;
+  margin-bottom: 8px;
+  overflow: hidden;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+.bs-grid.progress .progress span,
+.plan.ownprogress .progress span {
+  position: absolute;
+  display: block;
+  width: 100%;
+  color: #444;
+  font-size: 12px;
+  font-weight: 600;
+}
+.bs-grid.progress div.progress-barz,
+.plan.ownprogress div.progress-barz {
+  float: left;
+  width: 0;
+  height: 100%;
+  font-size: 12px;
+  line-height: 20px;
+  color: #fff;
+  text-align: center;
+  background-color: #30add1;
+  -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  -webkit-transition: width .6s ease;
+  transition: width .6s ease;
+}
+@media (max-width: 600px) {
+  .bs-grid.progress .progress-wrapper,
+  .plan.ownprogress .progress-wrapper {
+    max-width: 40%;
+  }
+}
+@media (max-width: 470px) {
+  .bs-grid.progress .progress-wrapper,
+  .plan.ownprogress .progress-wrapper {
+    max-width: 70px;
+  }
+}
+.plan.ownprogress {
+  padding-bottom: 5px;
+  margin-bottom: 20px;
+}
+.plan.ownprogress .epsp-field {
+  margin: 0px;
+}
+.plan.ownprogress .fields.bs-grid .col-md-3 {
+  text-align: center;
+}
+.plan.ownprogress .fields.bs-grid .col-md-6 h3 {
+  padding-left: 15px;
+}
+.plan.ownprogress .fields.bs-grid .heading .title {
+  padding-left: 20px;
+}
+.plan.ownprogress .fields.bs-grid .epsp-field {
+  margin-top: 10px;
+}
+.plan.ownprogress .subfields {
+  display: none;
+  padding-bottom: 10px;
+}
+.plan.ownprogress .epsp-field-title h2 a {
+  font-size: 0.8em;
+  display: block;
+  float: left;
+  line-height: 30px;
+  color: #285375;
+}
+.plan.ownprogress .epsp-field-title h2:after {
+  content: "\f054";
+  font-family: FontAwesome;
+  font-size: 0.7em;
+  padding-left: 15px;
+  width: 1em;
+  color: #285375;
+}
+.plan.ownprogress .epsp-field-title h2.toggle-subfields {
+  float: none;
+}
+.plan.ownprogress .row.heading {
+  display: none;
+}
+.plan.ownprogress.open .epsp-field-title h2:after {
+  content: "\f078";
+}
+.plan.ownprogress .pull-left {
+  float: left;
+  text-align: left;
+  padding-left: 15px;
+  min-width: 180px;
+}
+@media (min-width: 992px) {
+  .plan.ownprogress .pull-left {
+    display: none;
+  }
+  .plan.ownprogress .row.heading {
+    display: block;
+  }
+}
+.gridder-filters.progress .view-shared {
+  display: none;
+}
+#openall {
+  text-align: right;
+}
+#plans.gridder.progress li.shuffle-sizer,
+#plans.gridder.progress .gridder-item {
+  margin-bottom: 10px;
+  width: 100%;
+  border: none;
+  box-shadow: none;
+}
+#headings.modified,
+#headings.title,
+#headings {
+  color: #444;
+  font-size: 13px;
+}
+#headings.modified .bs-grid.headings .col-md-12,
+#headings.title .bs-grid.headings .col-md-12,
+#headings .bs-grid.headings .col-md-12 {
+  font-size: 15px;
+  padding-left: 25px;
+}
+#headings.modified .bs-grid.headings .col-md-12 .row > div,
+#headings.title .bs-grid.headings .col-md-12 .row > div,
+#headings .bs-grid.headings .col-md-12 .row > div {
+  padding-left: 0px;
+}
+@media (max-width: 992px) {
+  #headings.modified .bs-grid.headings .col-md-4,
+  #headings.title .bs-grid.headings .col-md-4,
+  #headings .bs-grid.headings .col-md-4 {
+    float: left;
+    width: 33%;
+  }
+  #headings.modified .bs-grid.headings .col-md-12,
+  #headings.title .bs-grid.headings .col-md-12,
+  #headings .bs-grid.headings .col-md-12 {
+    width: 100%;
+  }
+  #headings.modified .bs-grid.headings .lastsection,
+  #headings.title .bs-grid.headings .lastsection,
+  #headings .bs-grid.headings .lastsection {
+    padding-left: 0px;
+  }
+}
+#headings.modified.open .bs-grid.headings .lastsection,
+#headings.title.open .bs-grid.headings .lastsection,
+#headings.open .bs-grid.headings .lastsection {
+  display: none;
+}
+#headings.modified.open .bs-grid.headings .lastsection ~ .col-md-4,
+#headings.title.open .bs-grid.headings .lastsection ~ .col-md-4,
+#headings.open .bs-grid.headings .lastsection ~ .col-md-4 {
+  width: 50%;
+}
+#headings.modified.open .bs-grid.headings .lastsection ~ .col-md-4:nth-child(2),
+#headings.title.open .bs-grid.headings .lastsection ~ .col-md-4:nth-child(2),
+#headings.open .bs-grid.headings .lastsection ~ .col-md-4:nth-child(2) {
+  padding-left: 40px;
+}
+@media (max-width: 992px) {
+  #headings.modified.open,
+  #headings.title.open,
+  #headings.open {
+    display: none;
+  }
+}
+#headings.author .bs-grid.headings .col-md-12 > .col-md-5,
+#headings.author.open .bs-grid.headings .col-md-12 > .col-md-5 {
+  width: 25%;
+  padding-left: 0px;
+}
+#headings.author .bs-grid.headings .col-md-12 > .col-md-5 .row .col-md-7,
+#headings.author.open .bs-grid.headings .col-md-12 > .col-md-5 .row .col-md-7 {
+  display: none;
+}
+#headings.author .bs-grid.headings .col-md-12 > .col-md-7,
+#headings.author.open .bs-grid.headings .col-md-12 > .col-md-7 {
+  width: 75%;
+}
+@media (max-width: 992px) {
+  #headings.author .bs-grid.headings .col-md-12,
+  #headings.author.open .bs-grid.headings .col-md-12 {
+    width: 100%;
+    margin-left: 5px;
+  }
+  #headings.author .bs-grid.headings .col-md-12 > .col-md-7,
+  #headings.author.open .bs-grid.headings .col-md-12 > .col-md-7 {
+    width: 100%;
+  }
+  #headings.author .bs-grid.headings .col-md-4,
+  #headings.author.open .bs-grid.headings .col-md-4 {
+    float: left;
+    width: 33%;
+  }
+}
+#headings.author.open .bs-grid.headings .col-md-12 > .col-md-5,
+#headings.author.open .bs-grid.headings .col-md-12 .col-md-7 {
+  width: 50%;
+}
+#headings.author.open .bs-grid.headings .lastsection ~ .col-md-4:nth-child(2) {
+  padding-left: 0px;
+}
+.bs-grid.headings .subfields,
+.bs-grid.progress .subfields {
+  display: none;
+}
+.bs-grid.headings .row,
+.bs-grid.progress .row {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+.bs-grid.headings .epsp-field,
+.bs-grid.progress .epsp-field {
+  margin-top: 0px;
+}
+.bs-grid.headings li.gridder-item.concealed,
+.bs-grid.progress li.gridder-item.concealed {
+  display: none;
+}
+@media (min-width: 992px) {
+  .bs-grid.headings .gridder-item:not(.byauthor) .plan:not(.open) h2.plantitle,
+  .bs-grid.progress .gridder-item:not(.byauthor) .plan:not(.open) h2.plantitle {
+    max-width: 270px;
+    display: inline-block;
+  }
+  .bs-grid.headings .gridder-item:not(.byauthor) .plan:not(.open) h2.plantitle a,
+  .bs-grid.progress .gridder-item:not(.byauthor) .plan:not(.open) h2.plantitle a {
+    width: 80%;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    text-overflow: ellipsis;
+    margin: 0;
+    vertical-align: top;
+  }
+  .bs-grid.headings .gridder-item:not(.byauthor) .plan:not(.open) h2.plantitle i.fa,
+  .bs-grid.progress .gridder-item:not(.byauthor) .plan:not(.open) h2.plantitle i.fa {
+    width: 10%;
+    line-height: 1px;
+    margin: 0;
+    font-style: normal;
+    color: #FFF;
+    height: 1px;
+    font-size: 10px;
+  }
+}
+.bs-grid.headings li.gridder-item .plan.blockinstance,
+.bs-grid.progress li.gridder-item .plan.blockinstance {
+  padding: 0px 0px;
+  margin-bottom: 5px;
+}
+.bs-grid.headings li.gridder-item .plan.blockinstance.open .latest,
+.bs-grid.progress li.gridder-item .plan.blockinstance.open .latest {
+  display: none;
+}
+.bs-grid.headings li.gridder-item .plan.blockinstance .epsp-field.row div:first-child,
+.bs-grid.progress li.gridder-item .plan.blockinstance .epsp-field.row div:first-child {
+  padding-right: 0px;
+}
+.bs-grid.headings li.gridder-item .plan.blockinstance .epsp-field.row .row > div,
+.bs-grid.progress li.gridder-item .plan.blockinstance .epsp-field.row .row > div,
+.bs-grid.headings li.gridder-item .plan.blockinstance .epsp-field.row .row > h2,
+.bs-grid.progress li.gridder-item .plan.blockinstance .epsp-field.row .row > h2 {
+  padding-left: 0px;
+}
+.bs-grid.headings li.gridder-item h2.plantitle,
+.bs-grid.progress li.gridder-item h2.plantitle {
+  min-width: 80px;
+  margin: 5px 0px;
+  font-size: 1.3em;
+  color: #285375 !important;
+}
+.bs-grid.headings li.gridder-item h2.plantitle i.fa,
+.bs-grid.progress li.gridder-item h2.plantitle i.fa {
+  color: #FFF;
+  font-style: normal;
+}
+.bs-grid.headings li.gridder-item h2.plantitle i.fa:before,
+.bs-grid.progress li.gridder-item h2.plantitle i.fa:before {
+  content: "\f054";
+  font-family: FontAwesome;
+  color: #285375;
+  font-size: 15px;
+  position: relative;
+}
+.bs-grid.headings li.gridder-item h2.planauthor,
+.bs-grid.progress li.gridder-item h2.planauthor {
+  margin: 5px 0px;
+}
+.bs-grid.headings li.gridder-item h2.planauthor a,
+.bs-grid.progress li.gridder-item h2.planauthor a {
+  font-size: 19px;
+}
+.bs-grid.headings li.gridder-item .plan.open h2.plantitle i:before,
+.bs-grid.progress li.gridder-item .plan.open h2.plantitle i:before {
+  content: "\f078";
+}
+.bs-grid.headings li.gridder-item .epsp-field-subtitle,
+.bs-grid.progress li.gridder-item .epsp-field-subtitle {
+  margin-left: 17%;
+}
+.bs-grid.headings li.gridder-item .plan.open .epsp-field.row > .col-md-5,
+.bs-grid.progress li.gridder-item .plan.open .epsp-field.row > .col-md-5 {
+  width: 100%;
+}
+.bs-grid.headings li.gridder-item .plan.open .planauthor,
+.bs-grid.progress li.gridder-item .plan.open .planauthor {
+  width: 17%;
+}
+.bs-grid.headings li.gridder-item .plan.open .plantitle a,
+.bs-grid.progress li.gridder-item .plan.open .plantitle a {
+  width: 100%;
+  display: inline;
+  overflow: auto;
+}
+@media (max-width: 992px) {
+  .bs-grid.headings li.gridder-item .toggle-subfields,
+  .bs-grid.progress li.gridder-item .toggle-subfields {
+    float: none;
+  }
+  .bs-grid.headings li.gridder-item .epsp-field-subtitle,
+  .bs-grid.progress li.gridder-item .epsp-field-subtitle {
+    margin-left: 0px;
+  }
+  .bs-grid.headings li.gridder-item .plan.open .planauthor,
+  .bs-grid.progress li.gridder-item .plan.open .planauthor {
+    width: 100%;
+  }
+}
+@media (max-width: 600px) {
+  .bs-grid.headings li.gridder-item .progress-wrapper,
+  .bs-grid.progress li.gridder-item .progress-wrapper {
+    max-width: 40%;
+  }
+}
+@media (max-width: 470px) {
+  .bs-grid.headings li.gridder-item .progress-wrapper,
+  .bs-grid.progress li.gridder-item .progress-wrapper {
+    max-width: 70px;
+  }
+}
+.bs-grid.headings li.gridder-item .titlerow,
+.bs-grid.progress li.gridder-item .titlerow {
+  float: left;
+  text-align: left;
+  width: 48%;
+}
+.bs-grid.headings li.gridder-item .percent-wrapper,
+.bs-grid.progress li.gridder-item .percent-wrapper {
+  width: 52%;
+  float: left;
+}
+@media (min-width: 991px) {
+  .bs-grid.headings li.gridder-item .titlerow,
+  .bs-grid.progress li.gridder-item .titlerow {
+    display: none;
+  }
+  .bs-grid.headings li.gridder-item .row.heading,
+  .bs-grid.progress li.gridder-item .row.heading {
+    display: block;
+  }
+  .bs-grid.headings li.gridder-item .percent-wrapper,
+  .bs-grid.progress li.gridder-item .percent-wrapper {
+    width: 100%;
+    float: none;
+  }
+}
+.bs-grid.headings li.gridder-item .latest .progress-barz,
+.bs-grid.progress li.gridder-item .latest .progress-barz {
+  background-color: #00ae4c;
+}
+.bs-grid.headings li.gridder-item .latest .progress-wrapper,
+.bs-grid.progress li.gridder-item .latest .progress-wrapper,
+.bs-grid.headings li.gridder-item .latest .percent,
+.bs-grid.progress li.gridder-item .latest .percent,
+.bs-grid.headings li.gridder-item .latest h3.completable,
+.bs-grid.progress li.gridder-item .latest h3.completable {
+  margin-top: 10px;
+}
+@media (max-width: 992px) {
+  .bs-grid.headings li.gridder-item .latest .col-md-12,
+  .bs-grid.progress li.gridder-item .latest .col-md-12,
+  .bs-grid.headings li.gridder-item .latest .col-md-4,
+  .bs-grid.progress li.gridder-item .latest .col-md-4 {
+    padding: 0px;
+  }
+  .bs-grid.headings li.gridder-item .latest .col-md-4,
+  .bs-grid.progress li.gridder-item .latest .col-md-4 {
+    float: left;
+    width: 33%;
+  }
+  .bs-grid.headings li.gridder-item .latest .progress-wrapper,
+  .bs-grid.progress li.gridder-item .latest .progress-wrapper {
+    min-width: 70px;
+  }
+  .bs-grid.headings li.gridder-item .latest .progress-wrapper,
+  .bs-grid.progress li.gridder-item .latest .progress-wrapper,
+  .bs-grid.headings li.gridder-item .latest .percent,
+  .bs-grid.progress li.gridder-item .latest .percent,
+  .bs-grid.headings li.gridder-item .latest h3.completable,
+  .bs-grid.progress li.gridder-item .latest h3.completable {
+    margin-top: 0px;
+  }
+}
+.bs-grid.headings li.byauthor.gridder-item .studentplans,
+.bs-grid.progress li.byauthor.gridder-item .studentplans {
+  display: none;
+}
+.bs-grid.headings li.byauthor.gridder-item .epsp-field-subtitle,
+.bs-grid.progress li.byauthor.gridder-item .epsp-field-subtitle {
+  margin-left: 0px;
+  padding-left: 15px;
+}
+.bs-grid.headings li.byauthor.gridder-item .plan.open .toggle-subfields,
+.bs-grid.progress li.byauthor.gridder-item .plan.open .toggle-subfields {
+  width: 100%;
+}
+.bs-grid.headings li.byauthor.gridder-item .plan.open .epsp-field h3.completable,
+.bs-grid.progress li.byauthor.gridder-item .plan.open .epsp-field h3.completable {
+  padding-left: 15px;
+}
+.bs-grid.headings li.byauthor.gridder-item .planauthor,
+.bs-grid.progress li.byauthor.gridder-item .planauthor {
+  padding-left: 0px;
+}
+.bs-grid.headings li.byauthor.gridder-item .planauthor h2.planauthor:after,
+.bs-grid.progress li.byauthor.gridder-item .planauthor h2.planauthor:after {
+  content: "\f054";
+  font-family: FontAwesome;
+  font-size: 0.7em;
+  padding-left: 15px;
+  width: 1em;
+  color: #285375;
+}
+.bs-grid.headings li.byauthor.gridder-item .plantitle,
+.bs-grid.progress li.byauthor.gridder-item .plantitle {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.bs-grid.headings li.byauthor.gridder-item .plantitle i,
+.bs-grid.progress li.byauthor.gridder-item .plantitle i {
+  padding-left: 5px;
+}
+.bs-grid.headings li.byauthor.gridder-item .latest div,
+.bs-grid.progress li.byauthor.gridder-item .latest div {
+  padding-left: 0px;
+}
+.bs-grid.headings li.byauthor.gridder-item.open h2.planauthor:after,
+.bs-grid.progress li.byauthor.gridder-item.open h2.planauthor:after {
+  content: "\f078";
+}
+.bs-grid.headings li.byauthor.gridder-item.open .latest,
+.bs-grid.progress li.byauthor.gridder-item.open .latest {
+  display: none;
+}
+.bs-grid.headings li.byauthor.gridder-item .latest h3.completable,
+.bs-grid.progress li.byauthor.gridder-item .latest h3.completable {
+  margin-top: 0px;
+}
+.bs-grid.headings li.byauthor.gridder-item.open .titlerow,
+.bs-grid.progress li.byauthor.gridder-item.open .titlerow {
+  padding-left: 15px;
+}
+@media (max-width: 992px) {
+  .bs-grid.headings li.byauthor.gridder-item .latest .progress-wrapper,
+  .bs-grid.progress li.byauthor.gridder-item .latest .progress-wrapper,
+  .bs-grid.headings li.byauthor.gridder-item .latest .percent,
+  .bs-grid.progress li.byauthor.gridder-item .latest .percent {
+    margin-top: 10px;
+  }
+}

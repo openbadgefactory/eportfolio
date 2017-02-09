@@ -1,0 +1,165 @@
+/**
+ * Mahara: Electronic portfolio, weblog, resume builder and social networking
+ * Copyright (C) 2006-2008 Catalyst IT Ltd (http://www.catalyst.net.nz)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @package    mahara
+ * @subpackage artefact-epsp
+ * @author     Discendum Ltd
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL
+ * @copyright  (C) 2015 Discendum Ltd http://discendum.com
+ * @copyright  (C) 2006-2008 Catalyst IT Ltd http://catalyst.net.nz
+ *
+ */
+@import "./../../../../../../local/css/local.less";
+@import "./../../../../../../local/css/bootstrap.css";
+@import "./field.less";
+@wwwroot: "../../../../../../";
+
+.epsp-item {
+    .gridder-item-top {
+        background: transparent url(../images/epsp.png) center top no-repeat;
+    }
+}
+
+#fields {
+    padding: 0 0 1em 0;
+
+    .template-field {
+
+        &:hover {
+            background: #f0f4fd;
+        }
+
+        .subfields {
+            padding-top: 1em;
+            clear: both;
+        }
+
+        .template-field-content {
+            float: left;
+
+            .form-row {
+                margin: 0 0 5px 0;
+
+                label span.label {
+                    display: block;
+                    width: 140px;
+                    float: left;
+                    text-align: right;
+                    padding-right: 10px;
+                }
+
+                h2, h3, h4 {
+                    float: left;
+                    display: block;
+                    line-height: 1em;
+                    padding: 0 20px 0 0;
+                    margin: 0;
+                }
+
+                h2 {
+                    font-size: 1.8em;
+                    font-family: inherit;
+                }
+
+                h3 {
+                    padding-top: 5px;
+                    font-size: 1em !important;
+                    font-family: inherit;
+                    text-transform: uppercase;
+                    font-weight: bold !important;
+                }
+
+                h4 {
+                    font-size: 1.2em;
+                }
+
+                input[type=text], textarea, span.mceEditor {
+                    width: 500px;
+                }
+
+                input[type=text], textarea {
+                    padding: 3px;
+                    box-sizing: border-box;
+                }
+            }
+
+            .subfields .form-row {
+                overflow: hidden;
+            }
+        }
+
+        .template-field-name {
+            text-transform: uppercase;
+            font-size: .8em;
+            font-weight: bold;
+        }
+    }
+
+    &.readonly {
+        .template-field {
+            padding: 0;
+
+            &:hover {
+                background: inherit;
+            }
+        }
+    }
+}
+
+#fields {
+    &.readonly {
+        .toggle {
+            &:before {
+                content: "\f00c";
+            }
+        }
+    }
+}
+
+#access-wrapper {
+    #access-current {
+        #access-added-users ul.access-items li div {
+            padding: 0;
+            overflow: hidden;
+            img {
+                float: left;
+            }
+            span {
+                float: left;
+                margin: 5px 0 0 5px;
+            }
+        }
+    }
+}
+
+#student-search {
+    display: block;
+    margin-top: 5px;
+}
+
+.epsp-template-field-subtitle {
+    margin-left: 20px;
+}
+
+.epsp-template-field-goal,
+.epsp-template-field-textfield {
+    margin-left: 40px;
+}
+
+.epsp-description {
+    margin-bottom: 1em;
+}

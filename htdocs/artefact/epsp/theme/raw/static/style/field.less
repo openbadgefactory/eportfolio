@@ -1,0 +1,841 @@
+/**
+ * Mahara: Electronic portfolio, weblog, resume builder and social networking
+ * Copyright (C) 2006-2008 Catalyst IT Ltd (http://www.catalyst.net.nz)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @package    mahara
+ * @subpackage artefact-epsp
+ * @author     Discendum Ltd
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL
+ * @copyright  (C) 2015 Discendum Ltd http://discendum.com
+ * @copyright  (C) 2006-2008 Catalyst IT Ltd http://catalyst.net.nz
+ *
+ */
+* {
+  box-sizing: border-box;
+}
+.epsp-field {
+    overflow: hidden;
+    margin: 1.5em 0 0 0;
+
+    h2 {
+        font-size: 1.8em;
+        font-family: inherit;
+    }
+
+    h3 {
+        font-size: 1em !important;
+        font-family: inherit;
+        text-transform: uppercase;
+        font-weight: bold !important;
+    }
+
+    h2 a, h3 a {
+        font-size: inherit;
+        color: inherit;
+        line-height: inherit !important;
+    }
+
+    ul.mark-as-completed {
+        list-style: none;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+
+        li {
+            margin: 0 15px 0 0;
+            float: left;
+            div {
+                span.tick {
+                    &:before {
+                        font-family: FontAwesome;
+                        padding-right: 2px;
+                        font-size: 1.2em;
+                        width: 1em;
+                        display: inline-block;
+                    }
+                }
+                &.complete span.tick:before {
+                    content: "\f046";
+                    color: #00af50;
+                }
+                &.incomplete span.tick:before {
+                    content: "\f096";
+                    color: #d33;//#b52e7b;
+                }
+                &.editable {
+                    cursor: pointer;
+                }
+                span.name {
+                    display: block;
+                    color: #999;
+                    font-size: 0.9em;
+                    font-style: italic;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 991px) {
+        ul.mark-as-completed {
+            margin-left: 1.2em;
+            padding-top: 5px;
+        }
+    }
+
+    &.epsp-field-textfield,
+    &.epsp-field-goal {
+        /*margin-left: 2em;*/
+
+        &+.epsp-field-textfield,
+        &+.epsp-field-goal {
+            margin-top: 8px;
+        }
+    }
+
+    &.template-field {
+        /*margin-top: 0;*/
+    }
+
+    &.epsp-field-completabletitle {
+        .mark-as-completed {
+            padding-top: 7px;
+        }
+    }
+
+    .epsp-field-titlearea {
+        p {
+            float: left;
+            color: #027499 !important;
+            margin: 0;
+
+            span.title {
+                font-size: inherit;
+                color: inherit;
+                margin: inherit;
+            }
+
+            &.completable {
+                margin: 0 20px 0 0;
+            }
+
+        }
+    }
+
+    .completable {
+        float: left;
+        margin: 0 20px 0 0;
+    }
+
+    .toggle {
+        cursor: pointer;
+
+        &:before {
+            content: "\f054";
+            font-family: FontAwesome;
+            font-size: 1em;
+            padding-right: 5px;
+            width: 1em;
+            float: left;
+        }
+        &.open:before {
+            content: "\f078";
+        }
+    }
+
+    .epsp-field-contentarea {
+        clear: both;
+        padding: .5em;
+        margin: .5em 0 0 20px;
+        background: #f1f4f9;
+
+        dl {
+            margin: 0;
+        }
+
+        dt {
+            float: left;
+            clear: left;
+            width: 150px;
+            text-align: right;
+            font-weight: bold;
+        }
+
+        dd {
+            margin: 0 0 0 170px;
+            padding: 0 0 .5em 0;
+        }
+    }
+
+    &.epsp-field-textfield {
+        .epsp-field-contentarea {
+            padding-left: 1em;
+        }
+    }
+}
+
+#gridder-pagination {
+    z-index: 99;
+
+}
+
+.toggle-subfields {
+    float: left;
+    cursor: pointer;
+
+    span.icon {
+        display: block;
+        float: left;
+
+        &:before {
+            content: "\f054";
+            font-family: FontAwesome;
+            font-size: 1em;
+        }
+    }
+
+    &.open {
+        span.icon:before {
+            content: "\f078";
+        }
+    }
+
+    span.text {
+        display: block;
+        margin-left: 1.2em;
+    }
+
+
+}
+
+.subfield-wrapper {
+}
+
+/**
+ * ePSP field comments
+ */
+.field-feedback {
+    .form-row {
+        margin-bottom: 5px;
+    }
+
+    .comments {
+        margin-bottom: 1em;
+        max-height: 200px;
+        overflow: auto;
+
+        .field-comment {
+            padding: 5px;
+
+            &:nth-child(odd) {
+                background: #e6edf3;
+            }
+
+            &:nth-child(even) {
+                background: #F0F4FD;
+            }
+
+            .detail {
+                overflow: hidden;
+
+                &.highlight {
+                    .highlight();
+                }
+            }
+        }
+    }
+
+    span.mceEditor {
+        width: 100%;
+    }
+}
+
+.columns2,
+.columns3 {
+    .epsp-field-titlearea {
+        p {
+            float: none;
+            margin-right: 0;
+
+            &.completable {
+                margin-right: 0;
+            }
+        }
+    }
+
+    ul.mark-as-completed {
+        margin-left: 15px;
+        padding-top: 5px;
+
+        li {
+            /*float: none;*/
+        }
+    }
+
+    .epsp-field-contentarea {
+        dt {
+            float: none;
+            width: auto;
+            text-align: left;
+        }
+
+        dd {
+            margin: 0;
+            padding: 0 0 .5em 0;
+        }
+    }
+
+    .toggle-subfields {
+        float: none;
+    }
+}
+
+.loading-spinner {
+    margin: 4px 0 0 10px;
+    display: inline-block;
+    font-family: FontAwesome;
+    .spin(1s);
+
+    &:before {
+        content: "\f110";
+    }
+}
+
+.spin(@duration: 2s) {
+    -webkit-animation: spin @duration infinite linear;
+    -moz-animation: spin @duration infinite linear;
+    -o-animation: spin @duration infinite linear;
+    animation: spin @duration infinite linear;
+}
+
+@-o-keyframes spin {
+    from { -o-transform: rotate(0deg); }
+    to { -o-transform: rotate(359deg); }
+}
+@-ms-keyframes spin {
+    from { -ms-transform: rotate(0deg); }
+    to { -ms-transform: rotate(360deg); }
+}
+@-moz-keyframes spin {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+    from { transform:rotate(0deg); }
+    to { transform:rotate(360deg); }
+}
+
+.highlight() {
+    -webkit-animation: highlight 1.5s;
+    -moz-animation: highlight 1.5s;
+    -o-animation: highlight 1.5s;
+    animation: highlight 1.5s;
+}
+
+@-o-keyframes highlight {
+    0% { background: #0F77A0; }
+    100% { background: none; }
+}
+@-ms-keyframes highlight {
+    0% { background: #0F77A0; }
+    100% { background: none; }
+}
+@-moz-keyframes highlight {
+    0% { background: #0F77A0; }
+    100% { background: none; }
+}
+@-webkit-keyframes highlight {
+    0% { background: #0F77A0; }
+    100% { background: none; }
+}
+@keyframes highlight {
+    0% { background: #0F77A0; }
+    100% { background: none; }
+}
+
+
+/*progress bar copied from bootstrap 3.1.1*/
+
+.bs-grid.progress, .plan.ownprogress {
+    .latest{
+        .progress-wrapper {
+            width: 75%;
+            margin-right: 5px;
+        }
+    }
+
+    .progress-wrapper {
+        width: 80%;
+        float:left;
+        max-width: 260px;
+        margin-right: 5px;
+    }
+    .pull-right {
+        margin-left: 10px;
+        @media (max-width:992px){
+            float:left;
+        }
+    }
+    .progress {
+        position: relative;
+        height: 20px;
+        margin-bottom: 8px;
+        overflow: hidden;
+        background-color: #f5f5f5;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+        span {
+            position: absolute;
+            display: block;
+            width: 100%;
+            color: #444;
+            font-size: 12px;
+            font-weight: 600;
+        }
+    }
+    div.progress-barz {
+      float: left;
+      width: 0;
+      height: 100%;
+      font-size: 12px;
+      line-height: 20px;
+      color: #fff;
+      text-align: center;
+      background-color: #30add1;
+      -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
+              box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
+      -webkit-transition: width .6s ease;
+              transition: width .6s ease;
+    }
+    @media (max-width:600px){
+        .progress-wrapper {
+            max-width: 40%;
+        }
+    }
+    @media (max-width:470px){
+        .progress-wrapper {
+            max-width: 70px;
+        }
+    }
+
+}
+
+.plan.ownprogress {
+     padding-bottom: 5px;
+     margin-bottom: 20px;
+     .epsp-field {
+         margin:0px;
+     }
+     .fields.bs-grid{
+         .col-md-3 {
+             text-align: center;
+         }
+         .col-md-6 h3{
+             padding-left:15px;
+         }
+         .heading .title {
+             padding-left:20px;
+         }
+         .epsp-field {
+             margin-top:10px;
+         }
+     }
+    .subfields {
+         display: none;
+         padding-bottom: 10px;
+    }
+
+    .epsp-field-title h2{
+         a {
+             font-size: 0.8em;
+             display: block;
+             float:left;
+             line-height: 30px;
+             color:#285375;
+         }
+         &:after{
+             content: "\f054";
+             font-family: FontAwesome;
+             font-size: 0.7em;
+            padding-left: 15px;
+             width: 1em;
+            color:#285375;
+          }
+          &.toggle-subfields{
+              float:none;
+          }
+      }
+      .row.heading{
+          display: none;
+      }
+     &.open .epsp-field-title h2:after {
+         content: "\f078";
+     }
+     .pull-left {
+         float:left;
+         text-align: left;
+        padding-left:15px;
+         min-width: 180px;
+     }
+     @media (min-width:992px){
+         .pull-left{
+            display: none;
+         }
+       .row.heading {
+           display: block;
+        }
+    }
+
+}
+.gridder-filters.progress {
+    .view-shared {
+        display: none;
+    }
+}
+#openall {
+    text-align: right;
+}
+#plans.gridder.progress {
+    li.shuffle-sizer, .gridder-item {
+        margin-bottom:10px;
+        width: 100%;
+        border:none;
+        box-shadow: none;
+    }
+}
+#headings.modified, #headings.title, #headings{
+    color:#444;
+    font-size: 13px;
+    .bs-grid.headings {
+         .col-md-12{
+            font-size: 15px;
+            padding-left:25px;
+
+        .row > div {
+            padding-left:0px;
+        }
+        }
+        @media (max-width:992px){
+            .col-md-4{
+                float:left;
+                width: 33%;
+            }
+            .col-md-12{
+                width:100%;
+            }
+            .lastsection {
+                padding-left: 0px;
+            }
+        }
+    }
+    &.open {
+        .bs-grid.headings {
+            .lastsection {
+                display: none;
+                ~ .col-md-4 {
+                    width: 50%;
+                    &:nth-child(2) {
+                        padding-left:40px;
+                    }
+                }
+            }
+        }
+        @media (max-width:992px){
+            display: none;
+        }
+    }
+}
+
+#headings.author, #headings.author.open {
+    .bs-grid.headings {
+        .col-md-12{
+            > .col-md-5 {
+              width: 25%;
+                padding-left:0px;
+                .row .col-md-7 {
+                    display: none;
+                }
+            }
+            > .col-md-7 {
+              width: 75%;
+            }
+        }
+        @media (max-width:992px){
+            .col-md-12{
+                width:100%;
+                margin-left: 5px;
+                > .col-md-7 {
+                  width: 100%;
+                }
+            }
+            .col-md-4{
+                float:left;
+                width: 33%;
+            }
+        }
+    }
+}
+
+#headings.author.open .bs-grid.headings {
+  .col-md-12{
+      > .col-md-5, .col-md-7 {
+        width: 50%;
+      }
+  }
+  .lastsection ~ .col-md-4:nth-child(2) {
+    padding-left:0px;
+  }
+}
+
+
+.bs-grid.headings, .bs-grid.progress{
+    .subfields {
+         display: none;
+    }
+    .row {
+        margin-left:0px;
+        margin-right:0px;
+    }
+
+    .epsp-field {
+        margin-top:0px;
+    }
+    li.gridder-item.concealed {
+        display: none;
+    }
+@media (min-width:992px){
+    .gridder-item:not(.byauthor){
+        .plan:not(.open){
+            h2.plantitle {
+                max-width: 270px;
+                display: inline-block;
+                a {
+                    width:80%;
+                    white-space:nowrap;
+                    overflow: hidden;
+                    display: inline-block;
+                    text-overflow: ellipsis;
+                    margin:0;
+                    vertical-align: top;
+                }
+                i.fa {
+                    width:10%;
+                    line-height: 1px;
+                    margin:0;
+                    font-style:normal;
+                    color:#FFF;
+                    height: 1px;
+                    font-size: 10px;
+                }
+            }
+        }
+    }
+}
+    li.gridder-item {
+        .plan.blockinstance {
+            padding:0px 0px;
+            margin-bottom:5px;
+            &.open .latest {
+                display: none;
+            }
+            .epsp-field.row {
+                div:first-child{
+                    padding-right: 0px;
+                }
+                .row > div, .row > h2 {
+                    padding-left:0px;
+                }
+            }
+        }
+
+        h2.plantitle {
+          min-width: 80px;
+            margin:5px 0px;
+            font-size: 1.3em;
+            color: #285375 !important;
+            i.fa {
+                color:#FFF;
+                font-style:normal;
+            }
+            i.fa:before{
+                content: "\f054";
+                font-family: FontAwesome;
+                color:#285375;
+                font-size: 15px;
+                position: relative;
+            }
+        }
+        h2.planauthor {
+            margin: 5px 0px;
+            a {
+             font-size: 19px;
+            }
+        }
+        .plan.open h2.plantitle i:before {
+            content: "\f078";
+        }
+        .epsp-field-subtitle {
+            margin-left: 17%;
+        }
+        .plan.open{
+            .epsp-field.row > .col-md-5{
+                width: 100%;
+            }
+            .planauthor {
+                width: 17%;
+            }
+            .plantitle a{
+                width: 100%;
+                display: inline;
+                overflow: auto;
+            }
+        }
+        @media (max-width:992px){
+            .toggle-subfields {
+                float:none;
+            }
+            .epsp-field-subtitle{
+                margin-left: 0px;
+            }
+            .plan.open .planauthor {
+                width: 100%;
+            }
+        }
+
+        @media (max-width:600px){
+            .progress-wrapper {
+                max-width: 40%;
+            }
+        }
+        @media (max-width:470px){
+            .progress-wrapper {
+                max-width: 70px;
+            }
+        }
+        .titlerow {
+            float:left;
+            text-align: left;
+            width: 48%;
+        }
+        .percent-wrapper {
+            width: 52%;
+            float:left;
+        }
+        @media (min-width:991px){
+            .titlerow{
+                display: none;
+            }
+            .row.heading {
+                display: block;
+            }
+            .percent-wrapper {
+                width: 100%;
+                float: none;
+            }
+        }
+
+        .latest {
+            .progress-barz{
+                background-color: #00ae4c;
+            }
+            .progress-wrapper, .percent, h3.completable{
+                margin-top:10px;
+            }
+            @media (max-width:992px){
+                .col-md-12, .col-md-4 {
+                    padding:0px;
+                }
+                .col-md-4{
+                    float:left;
+                    width: 33%;
+                }
+                .progress-wrapper {
+                    min-width: 70px;
+                }
+                .progress-wrapper, .percent, h3.completable{
+                    margin-top:0px;
+                }
+            }
+        }
+    }
+
+    li.byauthor.gridder-item {
+        .studentplans {
+            display: none;
+        }
+        .epsp-field-subtitle {
+            margin-left: 0px;
+            padding-left:15px;
+        }
+        .plan.open {
+          .toggle-subfields {
+            width: 100%;
+            }
+          .epsp-field h3.completable{
+              padding-left: 15px;
+          }
+        }
+        .planauthor{
+            padding-left:0px;
+            h2.planauthor {
+                &:after{
+                    content: "\f054";
+                    font-family: FontAwesome;
+                    font-size: 0.7em;
+                    padding-left: 15px;
+                    width: 1em;
+                    color:#285375;
+                }
+            }
+        }
+        .plantitle {
+              white-space:nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+                    i {
+                      padding-left:5px;
+                    }
+        }
+        .latest div {
+          padding-left:0px;
+        }
+        &.open h2.planauthor:after{
+            content: "\f078";
+        }
+
+        &.open .latest {
+            display: none;
+        }
+        .latest h3.completable {
+            margin-top:0px;
+        }
+        &.open .titlerow {
+          padding-left:15px;
+        }
+
+        @media (max-width:992px){
+            .latest {
+                .progress-wrapper, .percent {
+                    margin-top:10px;
+                }
+            }
+        }
+    }
+}

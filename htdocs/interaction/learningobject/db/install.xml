@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMLDB PATH="interaction/learningobject/db" VERSION="20141126"
+       COMMENT="XMLDB file for learning object tables"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd">
+    <TABLES>
+
+        <TABLE NAME="interaction_learningobject_collection_parent">
+            <FIELDS>
+                <FIELD NAME="collection" TYPE="int" LENGTH="10" NOTNULL="true" />
+                <FIELD NAME="parent" TYPE="int" LENGTH="10" NOTNULL="true" />
+            </FIELDS>
+
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="collection,parent" />
+            </KEYS>
+        </TABLE>
+
+        <TABLE NAME="interaction_learningobject_assigned_user">
+            <FIELDS>
+                <FIELD NAME="collection" TYPE="int" LENGTH="10" NOTNULL="true" />
+                <FIELD NAME="user" TYPE="int" LENGTH="10" NOTNULL="true" />
+                <FIELD NAME="assignment_date" TYPE="datetime" NOTNULL="true" />
+                <FIELD NAME="is_assigned" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" />
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="collection,user" />
+            </KEYS>
+        </TABLE>
+
+        <TABLE NAME="interaction_learningobject_assigned_group">
+            <FIELDS>
+                <FIELD NAME="collection" TYPE="int" LENGTH="10" NOTNULL="true" />
+                <FIELD NAME="group" TYPE="int" LENGTH="10" NOTNULL="true" />
+                <FIELD NAME="assignment_date" TYPE="datetime" NOTNULL="true" />
+                <FIELD NAME="is_assigned" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" />
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="collection,group" />
+            </KEYS>
+        </TABLE>
+
+        <TABLE NAME="interaction_learningobject_assigned_institution">
+            <FIELDS>
+                <FIELD NAME="collection" TYPE="int" LENGTH="10" NOTNULL="true" />
+                <FIELD NAME="institution" TYPE="char" LENGTH="255" NOTNULL="true" />
+                <FIELD NAME="assignment_date" TYPE="datetime" NOTNULL="true" />
+                <FIELD NAME="is_assigned" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" />
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="collection,institution" />
+            </KEYS>
+        </TABLE>
+
+        <TABLE NAME="interaction_learningobject_assignment_instructor">
+            <FIELDS>
+                <FIELD NAME="collection" TYPE="int" LENGTH="10" NOTNULL="true" />
+                <FIELD NAME="user" TYPE="int" LENGTH="10" NOTNULL="true" />
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="collection,user" />
+            </KEYS>
+        </TABLE>
+
+        <TABLE NAME="interaction_learningobject_returned_view">
+            <FIELDS>
+                <FIELD NAME="viewid" TYPE="int" LENGTH="10" NOTNULL="true" />
+                <FIELD NAME="first_return_date" TYPE="datetime" />
+                <FIELD NAME="prev_return_date" TYPE="datetime" />
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="viewid" />
+            </KEYS>
+        </TABLE>
+
+        <TABLE NAME="interaction_learningobject_returned_collection">
+            <FIELDS>
+                <FIELD NAME="collectionid" TYPE="int" LENGTH="10" NOTNULL="true" />
+                <FIELD NAME="first_return_date" TYPE="datetime" />
+                <FIELD NAME="prev_return_date" TYPE="datetime" />
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="collectionid" />
+            </KEYS>
+        </TABLE>
+
+        <TABLE NAME="interaction_learningobject_returned_view_instructor">
+            <FIELDS>
+                <FIELD NAME="view" TYPE="int" LENGTH="10" NOTNULL="true" />
+                <FIELD NAME="user" TYPE="int" LENGTH="10" NOTNULL="true" />
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="view,user" />
+            </KEYS>
+        </TABLE>
+
+        <TABLE NAME="interaction_learningobject_returned_collection_instructor">
+            <FIELDS>
+                <FIELD NAME="collection" TYPE="int" LENGTH="10" NOTNULL="true" />
+                <FIELD NAME="user" TYPE="int" LENGTH="10" NOTNULL="true" />
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="collection,user" />
+            </KEYS>
+        </TABLE>
+
+    </TABLES>
+
+</XMLDB>

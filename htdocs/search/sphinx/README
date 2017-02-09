@@ -1,0 +1,97 @@
+This is a search plugin for Mahara. It uses the Sphinx full-text search engine
+(http://sphinxsearch.com/) and should work as a drop-in replacement for the
+internal search.
+
+Any questions, comments or bug fixes can be sent to antti.koskinen@discendum.com
+
+REQUIREMENTS
+============
+
+The plugin has been known to work with following software:
+
+* Linux (Ubuntu 10.04)
+* Sphinx 0.9.9 and later
+* Mahara 1.5.3
+* PHP 5.3
+* Mysql 5.1/PostgreSQL 8.4
+
+
+INSTALLATION
+============
+
+* Install Sphinx. It should be compiled with libstemmer support. Please refer
+  to instructions here:
+  http://sphinxsearch.com/docs/current.html
+
+* Depending on your database, copy sphinx.conf.mysql -OR- sphinx.conf.pg
+  file in this directory to /usr/local/etc/sphinx.conf
+  (or whatever you defined as default Sphinx configuration location).
+  This file should be modified to suit your needs.
+  
+  At the very least you need to change the DB connection settings and file
+  paths. Other options of interest are stop-word lists, character sets and
+  morphology. See the Sphinx manual for more details.
+
+* Start the Sphinx searchd daemon.
+
+* Copy this directory to /path/to/your/mahara/search
+  
+* Go to Plugin Administration page in your Mahara admin section. Click the
+  install link next to Sphinx, under search plugins.
+
+* You need to modify the plugin configuration if you installed the Sphinx
+  binaries in non-standard location or run searchd on a remote host.
+
+* Set Sphinx as your search plugin in site options
+
+
+Searchd needs to be running persistently on your server. I have found
+this to be quite stable, but a monitoring service like Monit is recommended.
+
+Content is indexed every ten minutes. This is done automatically by
+Mahara's internal cron. You can force immediate re-indexing from the plugin
+config page. This should be used for testing only.
+
+Searches are logged by default to /var/local/sphinx/query.log
+
+
+OTHER FEATURES
+=================
+
+In addition to the features replacing the internal search, this plugin provides
+following:
+
+* Filter by institution
+    If form is sent using GET method and parameter 'inst' is set to '1', search
+    results will be limited to current user's own institution(s). You need to
+    customize search forms if you wish to use this feature.
+
+* Exclude institutions
+    Users, groups and content of certain institutions may be excluded from
+    search results. These can be managed in the plugin configuration page.
+    
+* Find content
+    The plugin provides a static method content_search. As Mahara doesn't have
+    content search at the moment, you need to provide your own search
+    page which uses this method.
+
+    Synopsis:
+
+    // $type can be one of the following:
+    // 'all', 'forum', 'group', 'groupview', 'portfolioview', 'user', 'username'
+    $results = PluginSearchSphinx::content_search($query, $limit, $offset, $type);
+    
+    // Method returns a multi-dimensional array sorted by relevance. Each result
+    // looks something like this:
+    array(
+        'id'      => 11,      // id of the resource found
+        'oid'     => 123,     // secondary id, if needed (e.g. forum post id, view owner id)
+        'kind'    => 'forum', // result type
+        'title'   => "title text",
+        'summary' => "summary text",
+    )
+
+
+
+Copyright 2010-2012 Discendum Ltd http://discendum.com
+

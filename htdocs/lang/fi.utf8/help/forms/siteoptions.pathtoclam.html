@@ -1,0 +1,8 @@
+<h3>Polku clam-sovellukseen</h3>
+<p>Tiedostojärjestelmäpolku <code>clamscan</code> tai <code>clamdscan</code>
+virustarkistusta varten. Oletuksena on, että epäonnistuminen clamin ajamisessa
+tarkoittaa, että tiedostoa tulee kohdella viruksena ja karanteenihakemisto
+asennetaan automaattisesti Mahara-asennuksen toimesta.</p>
+<p>Turvallisuussyistä johtuen tätä asetusta ei voi muuttaa internetin kautta. Sinun tulee
+asettaa se<tt>config.php</tt> tiedosto seuraavasti:<p>
+<p><tt>$cfg->pathtoclam = '/path/to/your/clamscan';</tt></p>

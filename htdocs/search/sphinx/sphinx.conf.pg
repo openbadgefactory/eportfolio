@@ -1,0 +1,395 @@
+#
+# Sphinx configuration file
+#
+
+#############################################################################
+## data source definition
+#############################################################################
+
+source mahara 
+{
+    # data source type. mandatory, no default value
+    # known types are mysql, pgsql, mssql, xmlpipe, xmlpipe2, odbc
+    type = pgsql 
+
+    #####################################################################
+    ## SQL settings (for 'mysql' and 'pgsql' types)
+    #####################################################################
+
+    # some straightforward parameters for SQL source types
+    sql_host   = localhost
+    sql_user   = username
+    sql_pass   = password
+    sql_db     = dbname
+}
+
+source mahara_users : mahara
+{
+    sql_query = \
+        SELECT u.id, username, firstname, lastname, email, \
+            u.id AS myid, LOWER(username) AS username_sort, LOWER(firstname) AS firstname_sort, LOWER(lastname) AS lastname_sort, LOWER(email) AS email_sort, \
+            GROUP_CONCAT(DISTINCT LOWER(COALESCE(i.displayname, 'ööö'))) AS institution_sort, \
+            CASE COALESCE(u.preferredname, '') WHEN '' THEN '__NOPREFERREDNAME__' ELSE u.preferredname END AS preferredname, \
+            GROUP_CONCAT(COALESCE(bintro.configdata, '') || ' ' || COALESCE(aintro.title, '')) AS introduction, \
+            GROUP_CONCAT(COALESCE(bprof.title, '') || ' ' || COALESCE(aprof.description, '')) AS profile, \
+            GROUP_CONCAT(i.displayname) AS instname \
+        FROM usr u \
+        LEFT JOIN view v ON u.id = v.owner AND v.type = 'profile' \
+        LEFT JOIN usr_institution ui ON ui.usr = u.id \
+        LEFT JOIN institution i ON ui.institution = i.name \
+        LEFT JOIN block_instance bintro ON (bintro.view = v.id AND bintro.blocktype = 'profileinfo') \
+        LEFT JOIN artefact aintro ON u.id = aintro.owner AND aintro.artefacttype = 'introduction' \
+        LEFT JOIN view_artefact va ON v.id = va.view \
+        LEFT JOIN artefact aprof ON va.artefact = aprof.id \
+        LEFT JOIN block_instance bprof ON va.block = bprof.id \
+        WHERE u.id <> 0 AND u.active = 1 AND u.deleted = 0 \
+        GROUP BY u.id, u.username, u.firstname, u.lastname, u.email, u.preferredname
+
+    sql_attr_uint = myid
+
+    sql_attr_multi = uint institution from query; \
+        SELECT usr, CRC32(institution) FROM usr_institution \
+        UNION \
+        SELECT usr, CRC32(institution) FROM usr_institution_request WHERE confirmedusr = 1 \
+        UNION \
+        SELECT usr.id, CRC32('mahara') FROM usr LEFT OUTER JOIN usr_institution ui \
+            ON usr.id = ui.usr WHERE ui.institution IS NULL
+
+    sql_attr_multi = uint group from query; \
+        SELECT member, "group" FROM group_member \
+        UNION \
+        SELECT member, "group" FROM group_member_request \
+        UNION \
+        SELECT member, "group" FROM group_member_invite
+
+    sql_attr_multi = uint friends from query; \
+        SELECT usr1, usr2 FROM usr_friend \
+        UNION \
+        SELECT usr2, usr1 FROM usr_friend
+
+    sql_attr_str2ordinal = username_sort
+    sql_attr_str2ordinal = firstname_sort
+    sql_attr_str2ordinal = lastname_sort
+    sql_attr_str2ordinal = email_sort
+    sql_attr_str2ordinal = institution_sort
+
+    sql_query_info = SELECT username FROM usr WHERE id=$id
+
+    sql_query_post_index = TRUNCATE sphinx_delta
+}
+
+source mahara_users_delta : mahara_users
+{
+    sql_query = \
+        SELECT u.id, username, firstname, lastname, email, \
+            u.id AS myid, LOWER(username) AS username_sort, LOWER(firstname) AS firstname_sort, LOWER(lastname) AS lastname_sort, LOWER(email) AS email_sort, \
+            GROUP_CONCAT(DISTINCT LOWER(COALESCE(i.displayname, 'ööö'))) AS institution_sort, \
+            CASE COALESCE(u.preferredname, '') WHEN '' THEN '__NOPREFERREDNAME__' ELSE u.preferredname END AS preferredname, \
+            GROUP_CONCAT(COALESCE(bintro.configdata, '') || ' ' || COALESCE(aintro.title, '')) AS introduction, \
+            GROUP_CONCAT(COALESCE(bprof.title, '') || ' ' || COALESCE(aprof.description, '')) AS profile, \
+            GROUP_CONCAT(i.displayname) AS instname \
+        FROM usr u \
+        LEFT JOIN view v ON u.id = v.owner AND v.type = 'profile' \
+        LEFT JOIN usr_institution ui ON ui.usr = u.id \
+        LEFT JOIN institution i ON ui.institution = i.name \
+        LEFT JOIN block_instance bintro ON (bintro.view = v.id AND bintro.blocktype = 'profileinfo') \
+        LEFT JOIN artefact aintro ON u.id = aintro.owner AND aintro.artefacttype = 'introduction' \
+        LEFT JOIN view_artefact va ON v.id = va.view \
+        LEFT JOIN artefact aprof ON va.artefact = aprof.id \
+        LEFT JOIN block_instance bprof ON va.block = bprof.id \
+        WHERE u.id <> 0 AND u.active = 1 AND u.deleted = 0 \
+          AND ( u.id IN (SELECT id FROM sphinx_delta WHERE  type = 'user') OR v.mtime > CURRENT_DATE ) \
+        GROUP BY u.id, u.username, u.firstname, u.lastname, u.email, u.preferredname
+
+    sql_query_post_index = 
+
+    sql_query_killlist = SELECT id FROM sphinx_delta WHERE type = 'user'
+}
+
+source mahara_groups : mahara
+{
+    sql_query = \
+        SELECT g.id, g.name, LOWER(g.name) AS name_sort, g.description, \
+            COALESCE(g.category, 0) AS category, v.sphinxcache AS content \
+        FROM "group" g \
+        INNER JOIN view v ON (g.id = v.group AND v.type = 'grouphomepage') \
+        WHERE g.deleted = 0 \
+        GROUP BY g.id, g.name, g.description, g.category
+
+    sql_attr_multi = uint institution from query; \
+        SELECT gm.group, CRC32(institution) FROM group_member gm \
+        JOIN usr_institution ui ON gm.member = ui.usr \
+        WHERE gm.role = 'admin'
+
+    # Here we mark 'no categrory' as zero. Actually it's -1, but we have to use unsigned integers
+    sql_attr_uint = category 
+
+    sql_attr_str2ordinal = name_sort
+
+    sql_attr_multi = uint members from query; \
+        SELECT "group", member FROM group_member 
+
+    sql_query_info  = SELECT * FROM group WHERE id=$id
+}
+
+source mahara_artefacts : mahara
+{
+
+    sql_query = \
+        SELECT a.id, a.owner, a.title, a.description, \
+            GROUP_CONCAT(COALESCE(at.tag, '')) AS tags \
+        FROM artefact a \
+        LEFT JOIN artefact_tag at ON at.artefact = a.id \
+        GROUP BY a.id, a.owner, a.title, a.description
+
+    sql_attr_uint = owner
+
+    sql_query_info = SELECT * FROM artefact WHERE id=$id
+}
+
+source mahara_artefacts_delta : mahara_artefacts
+{
+    sql_query = \
+        SELECT a.id, a.owner, a.title, a.description, \
+            GROUP_CONCAT(COALESCE(at.tag, '')) AS tags \
+        FROM artefact a \
+        LEFT JOIN artefact_tag at ON at.artefact = a.id \
+        WHERE a.mtime > CURRENT_DATE \
+        GROUP BY a.id, a.owner, a.title, a.description
+
+    sql_query_killlist = SELECT id FROM artefact WHERE mtime > CURRENT_DATE
+}
+
+source mahara_views : mahara
+{
+
+    sql_query = \
+        SELECT v.id, v.owner, v.title, v.description, \
+            (v.group IS NOT NULL) AS groupview, v.submittedgroup, v.submittedtime, v.sphinxcache AS content \
+        FROM view v \
+        WHERE v.type = 'portfolio' \
+        GROUP BY v.id, v.owner, v.title, v.description, groupview
+
+    sql_attr_uint = owner
+
+    sql_attr_bool = groupview
+
+    sql_attr_uint = submittedgroup
+
+    sql_attr_str2ordinal = submittedtime
+
+    sql_attr_multi = uint institution from query; \
+        SELECT v.id, CRC32(ui.institution) FROM view v \
+        JOIN usr_institution ui ON v.owner = ui.usr
+
+    sql_query_info = SELECT * FROM view WHERE id=$id
+}
+
+source mahara_views_delta : mahara_views
+{
+    sql_query = \
+        SELECT v.id, v.owner, v.title, v.description, \
+            (v.group IS NOT NULL) AS groupview, v.submittedgroup, v.submittedtime, v.sphinxcache AS content \
+        FROM view v \
+        WHERE v.type = 'portfolio' AND v.sphinxcache_mtime > CURRENT_DATE
+        GROUP BY v.id, v.owner, v.title, v.description, groupview
+
+    sql_query_killlist = \
+        SELECT DISTINCT v.id \
+        FROM view v \
+        WHERE sphinxcache_mtime > CURRENT_DATE
+}
+
+source mahara_forums : mahara
+{
+
+    sql_query = \
+        SELECT id, subject, body, '' AS title, '' AS description \
+        FROM interaction_forum_post \
+        WHERE deleted = 0 AND parent IS NOT NULL \
+        UNION \
+        SELECT fp.id, fp.subject, fp.body, ii.title, ii.description \
+        FROM interaction_forum_post fp \
+        JOIN interaction_forum_topic ft ON fp.topic = ft.id \
+        JOIN interaction_instance ii ON ft.forum = ii.id \
+        WHERE fp.deleted = 0 AND fp.parent IS NULL
+
+
+    sql_attr_multi = uint institution from query; \
+        SELECT fp.id, CRC32(ui.institution) FROM interaction_forum_post fp \
+        INNER JOIN usr_institution ui ON fp.poster = ui.usr
+
+    sql_query_info = SELECT * FROM interaction_forum_post WHERE id=$id
+}
+
+source mahara_forums_delta : mahara_forums
+{
+    sql_query = \
+        SELECT id, subject, body, '' AS title, '' AS description \
+        FROM interaction_forum_post \
+        WHERE deleted = 0 AND parent IS NOT NULL AND ctime > CURRENT_DATE \
+        UNION \
+        SELECT fp.id, fp.subject, fp.body, ii.title, ii.description \
+        FROM interaction_forum_post fp \
+        JOIN interaction_forum_topic ft ON fp.topic = ft.id \
+        JOIN interaction_instance ii ON ft.forum = ii.id \
+        WHERE fp.deleted = 0 AND fp.parent IS NULL AND fp.ctime > CURRENT_DATE
+
+    sql_query_killlist = SELECT id FROM interaction_forum_post WHERE ctime > CURRENT_DATE
+}
+
+#############################################################################
+## index definition
+#############################################################################
+ 
+index mahara_users
+{
+    source = mahara_users 
+
+    path = /var/local/sphinx/mahara_users
+
+    docinfo = extern
+
+    mlock = 0
+
+    morphology = stem_en 
+
+    min_stemming_len = 4
+
+    #stopwords = /var/local/sphinx/stop.txt
+
+    #wordforms = /var/local/sphinx/wordforms.txt
+
+    min_word_len = 2
+
+    charset_type = utf-8
+
+    charset_table = @, a..z, 0..9, A..Z->a..z, U+DF, U+FC, U+F6, U+E4, U+E5, \
+        U+D6->U+F6, U+C4->U+E4, U+C5->U+E5, U+DC->U+FC, \
+        U+C0->a, U+C1->a, U+C2->a, U+C3->a, U+C7->c, U+C8->e, U+C9->e, U+CA->e, \
+        U+CC->i, U+CD->i, U+CE->i, U+D2->o, U+D3->o, U+D4->o, U+D5->o, U+D9->u, \
+        U+DA->u, U+DB->u, U+E0->a, U+E1->a, U+E2->a, U+E3->a, U+E7->c, U+E8->e, \
+        U+E9->e, U+EA->e, U+EC->i, U+ED->i, U+EE->i, U+F2->o, U+F3->o, U+F4->o, \
+        U+F5->o, U+F9->u, U+FA->u, U+FB->u
+
+    min_prefix_len = 1
+
+    prefix_fields = firstname, lastname, preferredname, instname
+
+    enable_star = 1
+
+    html_strip = 1
+
+    html_index_attrs  = img=alt,title; a=title;
+
+    html_remove_elements = style, script
+
+    preopen = 1
+
+    index_exact_words = 1
+
+}
+index mahara_users_delta : mahara_users
+{
+    source = mahara_users_delta
+    path = /var/local/sphinx/mahara_users_delta
+}
+
+index mahara_groups : mahara_users
+{
+    source = mahara_groups
+    path = /var/local/sphinx/mahara_groups
+    prefix_fields  = 
+    min_prefix_len = 0
+    min_infix_len = 3
+}
+
+
+index mahara_artefacts : mahara_users
+{
+    source = mahara_artefacts
+    path = /var/local/sphinx/mahara_artefacts
+    prefix_fields  = 
+    min_prefix_len = 3
+}
+index mahara_artefacts_delta : mahara_artefacts
+{
+    source = mahara_artefacts_delta
+    path = /var/local/sphinx/mahara_artefacts_delta
+}
+
+index mahara_views : mahara_users
+{
+    source = mahara_views
+    path = /var/local/sphinx/mahara_views
+    prefix_fields = 
+    min_prefix_len = 0
+    min_infix_len = 3
+}
+index mahara_views_delta : mahara_views
+{
+    source = mahara_views_delta
+    path = /var/local/sphinx/mahara_views_delta
+}
+
+index mahara_forums : mahara_users
+{
+    source = mahara_forums
+    path = /var/local/sphinx/mahara_forums
+    prefix_fields  = 
+    min_prefix_len = 0
+    min_infix_len = 3
+}
+index mahara_forums_delta : mahara_forums
+{
+    source = mahara_forums_delta
+    path = /var/local/sphinx/mahara_forums_delta
+}
+
+#############################################################################
+## indexer settings
+#############################################################################
+
+indexer
+{
+    mem_limit = 256M
+
+}
+
+#############################################################################
+## searchd settings
+#############################################################################
+
+searchd
+{
+    log = /var/local/sphinx/searchd.log
+
+    query_log = /var/local/sphinx/query.log
+
+    read_timeout = 5
+
+    client_timeout = 300
+
+    max_children = 30
+
+    pid_file = /var/local/sphinx/searchd.pid
+
+    max_matches = 1000
+
+    seamless_rotate = 1
+
+    preopen_indexes = 0
+
+    unlink_old = 1
+
+    mva_updates_pool = 1M
+
+    max_packet_size = 8M
+
+    max_filters = 256
+
+    max_filter_values = 4096
+
+}
+
+# --eof--

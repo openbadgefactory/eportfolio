@@ -1,0 +1,42 @@
+This is an Open Badge displayer plugin for Mahara.
+
+Open Badge is a concept developed by the Mozilla Foundation. Read more here:
+
+http://openbadges.org/
+
+
+Any questions, comments or bug fixes can be sent to antti.koskinen@discendum.com
+
+
+REQUIREMENTS
+============
+
+Mahara 1.8 or newer.
+
+
+INSTALLATION
+============
+
+1. Copy this folder to htdocs/blocktype/
+
+2. Log in as admin, go to Administration => Extensions,
+   click install link for this plugin under blocktype column.
+
+
+USAGE
+=====
+
+The plugin is currently hardcoded to use https://backpack.openbadges.org/
+as backpack. This may change when backpack federation capabilities are implemented.
+
+
+In order to display badges in a portfolio or profile page, two things are needed:
+
+1. The User must create public badge collections in their Mozilla backpack.
+
+2. The email address used with backpack must be one of the verified addresses in Mahara profile.
+
+After that, badge collections should become selectable in the block configuration popup.
+
+
+Copyright 2013-2014 Discendum Ltd http://www.discendum.com

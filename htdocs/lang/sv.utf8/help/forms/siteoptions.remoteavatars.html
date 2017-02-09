@@ -1,0 +1,24 @@
+<h3>Visa fjärravatars</h3>
+
+<p>Om alternativet är aktiverat, kommer Gravatars online service att användas
+för att visa profilbilder för användare som inte har någon bild i Mahara. Det
+här möjliggör för användaren att ladda upp en profilbild på Gravatar endast en
+gång och att den bilden sedan kan användas i Mahara och andra online tjänster.
+(Om Gravatar inte har någon profilbild för användaren, kommer Maharas
+standardbild att användas.)</p>
+
+<h4>Skäl till att oaktivare inställningen</h4>
+<p>Det här alternativet lönar sig att oaktivare i sådana installationer (såsom låsta interna nät) där användare
+inte kan tillgå Internet desto vidare. Användningen av Gravatar i en sådan
+omgivning orsakar bara extra väntande. </p>
+
+<p>Användning av Gravatars på tjänster med https kan orsaka säkerhetsvarningar
+på några webbläsare. Det här beror på att Gravatarbilder normalt fungerar via
+okryptad http.</p>
+
+<h4>Skräddarsydd avatarserver</h4>
+
+<p>Ifall du har en skräddarsydd avatarserver som fungerar under
+Gravatarprotokollet kan du specificera dess basurl i din config.php fil:
+$cfg->remoteavatarbaseurl = 'http://example.com/avatar/';</p>
+

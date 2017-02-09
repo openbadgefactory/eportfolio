@@ -1,0 +1,87 @@
+@import "./../../../../../../local/css/local.less";
+@import "./../../../../../../local/css/bootstrap.css";
+@wwwroot: "../../../../../../";
+
+.epsp-item {
+    .gridder-item-top {
+        background: transparent url("@{wwwroot}artefact/epsp/theme/raw/static/images/epsp.png") top center no-repeat;
+    }
+}
+
+.studyjournal-item {
+    .gridder-item-top {
+        background: transparent url("@{wwwroot}artefact/studyjournal/theme/raw/static/images/journal.png") top center no-repeat;
+    }
+}
+
+.multiresume-item {
+    .gridder-item-top {
+        background: transparent url("@{wwwroot}artefact/multiresume/theme/raw/static/images/resume.png") top center no-repeat;
+    }
+}
+
+.blog-item {
+    .gridder-item-top {
+        background: transparent url("@{wwwroot}artefact/blog/theme/raw/static/images/blog.png") top center no-repeat;
+    }
+}
+
+.grouphomepage-item,
+.page-item {
+    .gridder-item-top {
+        background: transparent url("../images/page.png") top center no-repeat;
+    }
+}
+
+.collection-item {
+    .gridder-item-top {
+        background: transparent url("../images/backg.png") top center no-repeat;
+    }
+}
+
+.group-item {
+    .gridder-item-top {
+        background: transparent url("../images/group.png") top center no-repeat;
+    }
+}
+.gridder-item {
+    span.return_date {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 10;
+        background: #fff;
+        padding: 2px 8px;
+        font-weight: bold;
+        font-size: .8em;
+        border-radius: 4px 0 4px 0;
+        border: solid 1px #cfcfcf;
+        border-left: 0;
+        border-top: 0;
+        cursor: default;
+    }
+}
+form#createview input {
+    display: none;
+}
+
+.gridder .group-item .publicity .publicity-icon:before {
+    color: #30add1;
+    content: "\f0c0";
+    font-size: 32px;
+}
+.gridder .gridder-item.token .publicity .publicity-icon:before {
+    color: transparent;
+}
+.gridder .gridder-item.token .publicity .publicity-icon {
+    background: url('../images/token.png');
+    background-size: auto 36px;
+    background-repeat: no-repeat;
+    background-position: top;
+    float: left;
+    margin-top:0px;
+    height: 36px;
+    width: 36px;
+}
+
+#student-search { display: block; margin-top: 5px; }

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMLDB PATH="artefact/studyjournal/db" VERSION="20060926" COMMENT="XMLDB file for study journal tables"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+    <TABLES>
+
+        <TABLE NAME="artefact_study_journal_field">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" />
+                <FIELD NAME="artefact" TYPE="int" LENGTH="10" NOTNULL="true" />
+                <FIELD NAME="title" TYPE="text" NOTNULL="true" />
+                <FIELD NAME="weight" TYPE="int" LENGTH="3" NOTNULL="true" />
+                <FIELD NAME="type" TYPE="char" LENGTH="50" NOTNULL="true" />
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id" />
+                <KEY NAME="artefactfk" TYPE="foreign" FIELDS="artefact" REFTABLE="artefact" REFFIELDS="id" />
+            </KEYS>
+        </TABLE>
+        
+        <TABLE NAME="artefact_study_journal_entry_value">
+            <FIELDS>
+                <FIELD NAME="artefact" TYPE="int" LENGTH="10" NOTNULL="true" />
+                <FIELD NAME="study_journal_field" TYPE="int" LENGTH="10" NOTNULL="true" />
+                <FIELD NAME="value" TYPE="text" NOTNULL="false" />
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="artefactfk" TYPE="foreign" FIELDS="artefact" REFTABLE="artefact" REFFIELDS="id" />
+                <KEY NAME="study_journal_fieldfk" TYPE="foreign" FIELDS="study_journal_field" REFTABLE="artefact_study_journal_field" REFFIELDS="id" />
+            </KEYS>
+        </TABLE>
+        
+        <TABLE NAME="artefact_study_journal_entry_view">
+            <FIELDS>
+                <FIELD NAME="artefact" TYPE="int" LENGTH="10" NOTNULL="true" />
+                <FIELD NAME="view" TYPE="int" LENGTH="10" NOTNULL="true" />
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="artefactfk" TYPE="foreign" FIELDS="artefact" REFTABLE="artefact" REFFIELDS="id" />
+                <KEY NAME="viewfk" TYPE="foreign" FIELDS="view" REFTABLE="view" REFFIELDS="id" />
+                <KEY NAME="primary" TYPE="primary" FIELDS="artefact,view" />
+            </KEYS>
+        </TABLE>
+                
+        <TABLE NAME="artefact_study_journal_entry_collection">
+            <FIELDS>
+                <FIELD NAME="artefact" TYPE="int" LENGTH="10" NOTNULL="true" />
+                <FIELD NAME="collection" TYPE="int" LENGTH="10" NOTNULL="true" />
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="artefactfk" TYPE="foreign" FIELDS="artefact" REFTABLE="artefact" REFFIELDS="id" />
+                <KEY NAME="collectionfk" TYPE="foreign" FIELDS="collection" REFTABLE="collection" REFFIELDS="id" />
+                <KEY NAME="primary" TYPE="primary" FIELDS="artefact,collection" />
+            </KEYS>
+        </TABLE>
+                
+        <TABLE NAME="artefact_study_journal_group">
+            <FIELDS>
+                <FIELD NAME="artefact" TYPE="int" LENGTH="10" NOTNULL="true" />
+                <FIELD NAME="group" TYPE="int" LENGTH="10" NOTNULL="true" />
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="artefactfk" TYPE="foreign" FIELDS="artefact" REFTABLE="artefact" REFFIELDS="id" />
+                <KEY NAME="groupfk" TYPE="foreign" FIELDS="group" REFTABLE="group" REFFIELDS="id" />
+                <KEY NAME="primary" TYPE="primary" FIELDS="artefact,group" />
+            </KEYS>
+        </TABLE>
+                
+        <TABLE NAME="artefact_study_journal_institution">
+            <FIELDS>
+                <FIELD NAME="artefact" TYPE="int" LENGTH="10" NOTNULL="true" />
+                <FIELD NAME="institution" TYPE="char" LENGTH="255" NOTNULL="true" />
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="artefactfk" TYPE="foreign" FIELDS="artefact" REFTABLE="artefact" REFFIELDS="id" />
+                <KEY NAME="instfk" TYPE="foreign" FIELDS="institution" REFTABLE="institution" REFFIELDS="name" />
+                <KEY NAME="primary" TYPE="primary" FIELDS="artefact,institution" />
+            </KEYS>
+        </TABLE>
+                
+    </TABLES>
+</XMLDB>

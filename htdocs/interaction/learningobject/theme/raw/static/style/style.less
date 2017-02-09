@@ -1,0 +1,199 @@
+/**
+ * Mahara: Electronic portfolio, weblog, resume builder and social networking
+ * Copyright (C) 2006-2008 Catalyst IT Ltd (http://www.catalyst.net.nz)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @package    mahara
+ * @subpackage interaction-learningobject
+ * @author     Discendum Ltd
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL
+ * @copyright  (C) 2014 Discendum Ltd http://discendum.com
+ * @copyright  (C) 2006-2008 Catalyst IT Ltd http://catalyst.net.nz
+ *
+ */
+@import "./../../../../../../local/css/local.less";
+@import "./../../../../../../local/css/bootstrap.css";
+@wwwroot: "../../../../../../";
+
+.learningobject-item {
+    .gridder-item-top {
+        background: transparent url("@{wwwroot}interaction/pages/theme/raw/static/images/backg.png") top center no-repeat;
+    }
+
+    span.return_date {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 10;
+        background: #fff;
+        padding: 2px 8px;
+        font-weight: bold;
+        font-size: .8em;
+        border-radius: 4px 0 4px 0;
+        border: solid 1px #cfcfcf;
+        border-left: 0;
+        border-top: 0;
+        cursor: default;
+    }
+}
+
+.gridder .gridder-item.token .publicity .publicity-icon:before {
+    color: transparent;
+}
+
+.gridder .gridder-item.token .publicity .publicity-icon {
+    background: url("@{wwwroot}interaction/pages/theme/raw/static/images/token.png");
+    background-size: auto 36px;
+    background-repeat: no-repeat;
+    background-position: top;
+    float: left;
+    margin-top:0px;
+    height: 36px;
+    width: 36px;
+}
+
+.gridder .gridder-item.assigned .publicity-icon:before {
+    color: #d33;
+    content: "\f071";
+    font-size: 34px;
+}
+
+.button() {
+    width: 24px;
+    height: 24px;
+    text-indent: -9999px;
+    border-radius: 0 !important;
+    border: 0;
+
+    &:disabled,
+        &[disabled] {
+        visibility: hidden;
+    }
+}
+
+#potential-recipients {
+    float: left;
+
+    button.button {
+        .button();
+        background: url("@{wwwroot}theme/eportfolio/static/images/btn_add.png");
+    }
+
+    #institution-selector-container {
+        overflow: hidden;
+        margin: 0 0 5px 15px;
+
+        button {
+            float: left;
+        }
+
+        label {
+            display: none;
+        }
+
+        select {
+            width: 260px;
+        }
+    }
+
+    #group-selector-container {
+        margin: 0 0 10px 25px;
+
+        select {
+            width: 260px;
+        }
+    }
+
+    #student-list {
+        margin: 0 0 0 35px;
+
+        table {
+            width: 100%;
+        }
+    }
+
+    ul#mygroups {
+        list-style: none;
+        margin-left: 15px;
+
+        li {
+            margin: 0 0 5px 0;
+            padding: 0;
+        }
+    }
+
+    #instructor-search {
+        margin: 0 0 10px 0;
+    }
+
+    #potential-instructors-container {
+        margin: 0 0 0 15px;
+
+        table#potential-instructors {
+            width: 100%;
+        }
+    }
+}
+
+#assignment-users {
+    width: 100%;
+    float: right;
+    padding-top: 10px;
+
+    h2 {
+        margin-bottom: 1em;
+    }
+
+    button.remove {
+        .button();
+        background: url("@{wwwroot}theme/eportfolio/static/images/btn_deleteremove.png");
+    }
+
+    table {
+        width: 100%;
+
+        td.removebutton {
+            text-align: right;
+        }
+
+        td.profileicon {
+            width: 30px;
+        }
+
+        tbody tr:nth-child(odd) {
+            background: #f0f4fd;
+        }
+    }
+
+    #assignment-settings,
+    #assignment-recipients {
+        margin: 0 0 2em 0;
+    }
+}
+
+.form-row {
+    margin: 5px 0 0 0;
+
+    label {
+        float: left;
+        width: 85px;
+        padding-right: 15px;
+        text-align: right;
+    }
+
+    .form-item-description {
+        margin: 5px 0 0 100px;
+    }
+}

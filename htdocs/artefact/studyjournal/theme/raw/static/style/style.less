@@ -1,0 +1,257 @@
+@import "./../../../../../../local/css/bootstrap.css";
+@import "../../../../../../local/css/local.less";
+@import "vibemeter.less";
+
+.studyjournal-item,
+.journal-item {
+    .gridder-item-top {
+        background: transparent url(../images/journal.png) top center no-repeat;
+    }
+
+    &.journal-template {
+        .gridder-item-top {
+            background: transparent url(../images/pohja.png) top center no-repeat;
+        }
+    }
+}
+
+input#studyjournal_title {
+    width: 490px;
+}
+
+input#studyjournaltemplate_title {
+    width: 300px;
+}
+
+#template-container {
+    margin: 0 0 1em 0;
+
+    .template-field-text textarea,
+    .template-field-vibe input {
+        width: 500px;
+        padding: 3px;
+    }
+
+    .template-field-name {
+        text-transform: uppercase;
+        font-size: .8em;
+        font-weight: bold;
+    }
+}
+
+form#studyjournaltemplate {
+    table {
+        width: 100%;
+    }
+
+    td.description {
+        padding-bottom: 1em;
+    }
+}
+
+.template-preview {
+    form {
+        >div {
+            margin: 0 0 1em 0;
+            background: #fff;
+            padding: 1em;
+            border-radius: 6px;
+            border: solid #f0f0f0 1px;
+        }
+        label {
+            margin: 0 0 .5em 0;
+            display: block;
+        }
+    }
+}
+
+.template-preview,
+#studyjournalentry {
+    /* To get the go**amn editor full width. */
+    span.mceEditor {
+        width: 100%;
+    }
+}
+
+#journal-form {
+    padding-bottom: 1em;
+}
+
+#journal-description {
+    padding: 1em 0;
+}
+
+ol#journal-entries {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.studyjournal-entry {
+    margin: 0 0 4em 0;
+
+    .studyjournal-entry-date {
+        margin: 0 0 1em 0;
+        color: #00455e;
+        text-align: right;
+    }
+
+    h3.studyjournal-title {
+        background: #00455e;
+        color: #fff;
+        font-size: 1.2em !important;
+        font-weight: bold !important;
+        padding: 10px;
+        margin: 0 0 5px 0;
+
+        a {
+            color: inherit;
+        }
+    }
+
+    h4 {
+        font-size: 2em;
+    }
+
+    .studyjournal-entry-field-value {
+        margin: 0 0 2em 1em;
+        overflow: hidden;
+    }
+}
+
+#attach-from-portfolio-modal ul {
+    list-style: none;
+    overflow: hidden;
+
+    li {
+        margin-left: 0;
+        float: left;
+        width: 48%;
+
+        input {
+            float: left;
+        }
+
+        label {
+            display: block;
+            padding-left: 25px;
+
+            a {
+                font-size: inherit;
+            }
+        }
+    }
+}
+
+/* Pieforms with div-renderer */
+#container .pieform {
+    &>div {
+        margin: 0 0 2em 0;
+    }
+    &>div.button {
+        margin: 0 0 .5em 0;
+    }
+    &>div label {
+        display: block;
+        margin: 0 0 1em 0;
+    }
+
+    div.radio.vibemeter {
+        overflow: hidden;
+
+        &>.radio {
+            float: left;
+            position: relative;
+            margin: 0 10px 0 0;
+
+            input {
+                position: absolute;
+                bottom: 0;
+                left: 20px;
+            }
+
+            label {
+                .vibe-meter-item();
+
+            }
+
+            &:nth-of-type(1) label {
+                .vibe-item-1();
+            }
+
+            &:nth-of-type(2) label {
+                .vibe-item-2();
+            }
+
+            &:nth-of-type(3) label {
+                .vibe-item-3();
+            }
+
+            &:nth-of-type(4) label {
+                .vibe-item-4();
+            }
+
+            &:nth-of-type(5) label {
+                .vibe-item-5();
+            }
+        }
+    }
+}
+
+form#studyjournalentry {
+    label {
+        .entry-heading();
+    }
+
+    input#studyjournalentry_title {
+        width: 300px;
+    }
+
+    #studyjournalentry_attachedpreview_container {
+        margin-bottom: 1em;
+    }
+
+    #studyjournalentry_portfoliolink_container {
+        margin-bottom: 2em;
+    }
+}
+
+.attachedpages {
+    margin-top: 1em;
+    border: 1px dashed #dfe9f6;
+    padding: 10px;
+
+    ul {
+        overflow: hidden;
+        margin: 0;
+
+        li {
+            float: left;
+            list-style: none;
+            margin: 0 1em 0 0;
+            background: #f0f0f0;
+            padding: 5px 10px;
+            border-radius: 6px;
+        }
+    }
+}
+
+#studyjournalentry_attached_container {
+    display: none;
+}
+
+form#dateselect {
+    margin: 0 0 1em 0;
+}
+
+h3.attached-title {
+    .entry-heading();
+}
+
+.entry-heading() {
+    padding-bottom: 5px;
+    font-family: "PT Sans", Arial, Helvetica, sans-serif;
+    font-size: 21px !important;
+    font-weight: normal !important;
+    color: rgb(2, 116, 153);
+}

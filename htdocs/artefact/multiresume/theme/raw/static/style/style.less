@@ -1,0 +1,252 @@
+/**
+ * Mahara: Electronic portfolio, weblog, resume builder and social networking
+ * Copyright (C) 2006-2008 Catalyst IT Ltd (http://www.catalyst.net.nz)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @package    mahara
+ * @subpackage TODO
+ * @author     Discendum Ltd
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL
+ * @copyright  (C) 2014 Discendum Ltd http://discendum.com
+ * @copyright  (C) 2006-2008 Catalyst IT Ltd http://catalyst.net.nz
+ *
+ */
+@import "./../../../../../../local/css/bootstrap.css";
+@import "../../../../../../local/css/local.less";
+
+.resume-item {
+    .gridder-item-top {
+        background: transparent url(../images/resume.png) center top no-repeat;
+    }
+}
+
+.resume-item.Suomi {
+    background: #fff url("../../../../../../theme/raw/static/images/flag_FI.gif") 5px 5px no-repeat !important;
+}
+
+.resume-item.Svenska {
+    background: #fff url("../../../../../../theme/raw/static/images/flag_SE.gif") 5px 5px no-repeat !important;
+}
+
+.resume-item.English {
+    background: #fff url("../../../../../../theme/raw/static/images/flag_EN.gif") 5px 5px no-repeat !important;
+}
+.mceEditor { width: 100%; }
+
+form.pieform > table { width: 95% }
+
+form.pieform fieldset > table { width: 100% }
+
+form#resumesettings fieldset > table { width: auto }
+
+span.multiresume_saved {
+    font-weight: bold;
+    color: green;
+    padding-left: 10px;
+}
+
+span.multiresume_failed {
+    font-weight: bold;
+    color: red;
+    padding-left: 10px;
+}
+/*span.reorder span.uparrow {
+    background: url(../images/move-up.gif) no-repeat left center;
+    padding: 10px;
+}
+
+span.reorder span.downarrow {
+    background: url(../images/move-down.gif) no-repeat left center;
+    padding: 10px;
+}*/
+.multiresume_hidden {
+    display: none;
+}
+iframe#frame {
+    position: absolute;
+    display: none;
+    width:700px;
+    height:auto;
+    border:2px solid #CCCCCC;
+    border-radius:20px;
+    overflow: visible;
+    z-index: 9999;
+}
+
+.multiresumeframe {
+    #top-wrapper, #footer-wrap, .sitemessages {
+        display: none;
+    }
+    #container {
+        width:100%;
+        #mainmiddle {
+            width:100%;
+            max-width: 100%;
+            .closeframe {
+                float: right;
+                cursor: pointer;
+            }
+        }
+    }
+    form.pieform > table, form.pieform {
+        width: 100%;
+    }
+}
+/*table#resumelist {
+    padding-top:40px;
+    width: 100%;
+    border-collapse: separate;
+    thead th {
+        border:none;
+    }
+    td a,td {
+        line-height: 2em; padding-left:10px;
+    }
+}*/
+
+.ui-sortable > form {
+    .handler {
+        padding-top:7px;
+        float:left;
+        display: block;
+        cursor: move;
+        &:before {
+            font-family: FontAwesome;
+            font-size:  20px;
+            color: #444444;
+            padding: 0px 25px 0px 20px;
+            content: "\f07d";
+            background: transparent;
+        }
+    }
+    fieldset {
+        margin:0px;
+        padding:0px;
+        border: none;
+        legend {
+            padding-top:5px;
+            padding-right:10px;
+            padding-left:0px;
+            font-size: 16px;
+            font-weight: normal;
+            a {
+                text-decoration: none;
+                background: none;
+                padding:0;
+                font-weight: bold;
+                &:before {
+                    font-family: FontAwesome;
+                    font-size: 0.8em;
+                    color:#027499;
+                    padding-right: 0.5em;
+                    content: "\f078";
+                }
+            }
+        }
+        &.collapsed legend a:before {
+            content:"\f054"
+        }
+        > table {
+            cursor: default;
+            span.reorder {
+                margin: 0 10px;
+                float: right;
+                display: block;
+                cursor: pointer;
+                span.remove {
+                    background: url("../../../../../../theme/eportfolio/static/images/btn_deleteremove.png") no-repeat left center;
+                    padding: 13px;
+                }
+            }
+            textarea.wysiwyg {
+                height: 300px;
+            }
+            a.btn {
+                border-color: #fff;
+                background: #028fd1;
+                color: #FFFFFF;
+                border-radius: 5px;
+                padding: 5px 10px;
+                font-size: 1.167em;
+                font-weight: normal;
+                margin-left:5px;
+            }
+            table.resumecomposite {
+                width: 100%;
+                margin-bottom: 15px;
+                border-collapse: separate;
+                h1 {
+                    border: none !important;
+                    margin-top: 5px !important;
+                }
+                h2 {
+                    font-size: 1.5em !important;
+                    border: none;
+                }
+                h3 {
+                    font-size: 1.4em !important;
+                }
+                h4 {
+                    font-size: 1.25em !important;
+                }
+                .buttonscell {
+                    cursor: pointer;
+                }
+                th, td {
+                    width:120px;
+                    display: table-cell;
+                    float: none;
+                }
+                tr.r0 {
+                    background: #e6edf3;
+                }
+                tr.expandable-body p{
+                    font-size: 13px !important;
+                }
+                tr.expandable-head{
+                    font-size: 14px;
+                    td.toggle.expanded:before {
+                        content: "\f078";
+                    }
+                    td.toggle:before {
+                        font-family: FontAwesome;
+                        font-size: 0.8em;
+                        color:#027499;
+                        padding-right: 0.5em;
+                        content:"\f054";
+                    }
+                }
+                .resumecontrols, td.buttonscell {
+                    width: 30px;
+                }
+            }
+            .add-resumerow {
+                padding-bottom: 10px;
+            }
+            th {
+                width: 80px;
+            }
+        }
+        input.text {
+            width: 300px;
+        }
+    }
+}
+
+/* Personal information labels */
+tr[id^=personal] th {
+    text-align: right;
+    padding-right: 20px;
+}

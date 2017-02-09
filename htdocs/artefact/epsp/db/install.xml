@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="artefact/resume/db" VERSION="20060926" COMMENT="XMLDB file for resume tables"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../lib/xmldb/xmldb.xsd"
+>
+    <TABLES>
+
+        <TABLE NAME="artefact_epsp_field">
+            <FIELDS>
+                <FIELD NAME="artefact" TYPE="int" LENGTH="10" NOTNULL="true" />
+                <FIELD NAME="value" TYPE="text" />
+                <FIELD NAME="completable" TYPE="int" LENGTH="1" DEFAULT="0" NOTNULL="true" />
+                <FIELD NAME="completed" TYPE="int" LENGTH="1" DEFAULT="0" NOTNULL="true" />
+                <FIELD NAME="marked_completed_by_user" TYPE="int" LENGTH="10" NOTNULL="false" />
+                <FIELD NAME="marked_completed_at" TYPE="datetime" NOTNULL="false" />
+                <FIELD NAME="order" TYPE="int" LENGTH="3" NOTNULL="true" />
+                <FIELD NAME="type" TYPE="char" LENGTH="50" NOTNULL="true" />
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="artefact" />
+            </KEYS>
+        </TABLE>
+
+        <TABLE NAME="artefact_epsp_user">
+            <FIELDS>
+                <FIELD NAME="artefact" TYPE="int" LENGTH="10" NOTNULL="true" />
+                <FIELD NAME="user" TYPE="int" LENGTH="10" NOTNULL="true" />
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="artefact,user" />
+            </KEYS>
+        </TABLE>
+
+        <TABLE NAME="artefact_epsp_group">
+            <FIELDS>
+                <FIELD NAME="artefact" TYPE="int" LENGTH="10" NOTNULL="true" />
+                <FIELD NAME="group" TYPE="int" LENGTH="10" NOTNULL="true" />
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="artefact,group" />
+            </KEYS>
+        </TABLE>
+
+        <TABLE NAME="artefact_epsp_institution">
+            <FIELDS>
+                <FIELD NAME="artefact" TYPE="int" LENGTH="10" NOTNULL="true" />
+                <FIELD NAME="institution" TYPE="char" LENGTH="255" NOTNULL="true" />
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="artefact,institution" />
+            </KEYS>
+        </TABLE>
+
+    </TABLES>
+</XMLDB>

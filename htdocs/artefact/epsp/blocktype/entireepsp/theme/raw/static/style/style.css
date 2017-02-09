@@ -1,0 +1,357 @@
+/**
+ * Mahara: Electronic portfolio, weblog, resume builder and social networking
+ * Copyright (C) 2006-2008 Catalyst IT Ltd (http://www.catalyst.net.nz)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @package    mahara
+ * @subpackage TODO
+ * @author     Discendum Ltd
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL
+ * @copyright  (C) 2015 Discendum Ltd http://discendum.com
+ * @copyright  (C) 2006-2008 Catalyst IT Ltd http://catalyst.net.nz
+ *
+ */
+/**
+ * Mahara: Electronic portfolio, weblog, resume builder and social networking
+ * Copyright (C) 2006-2008 Catalyst IT Ltd (http://www.catalyst.net.nz)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @package    mahara
+ * @subpackage artefact-epsp
+ * @author     Discendum Ltd
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL
+ * @copyright  (C) 2015 Discendum Ltd http://discendum.com
+ * @copyright  (C) 2006-2008 Catalyst IT Ltd http://catalyst.net.nz
+ *
+ */
+.epsp-field {
+  overflow: hidden;
+  margin: 1.5em 0 0 0;
+}
+.epsp-field h2 {
+  font-size: 1.8em;
+  font-family: inherit;
+}
+.epsp-field h3 {
+  font-size: 1em !important;
+  font-family: inherit;
+  text-transform: uppercase;
+  font-weight: bold !important;
+}
+.epsp-field h2 a,
+.epsp-field h3 a {
+  font-size: inherit;
+  color: inherit;
+  line-height: inherit !important;
+}
+.epsp-field ul.mark-as-completed {
+  list-style: none;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+.epsp-field ul.mark-as-completed li {
+  margin: 0 15px 0 0;
+  float: left;
+}
+.epsp-field ul.mark-as-completed li div span.tick:before {
+  font-family: FontAwesome;
+  padding-right: 2px;
+  font-size: 1.2em;
+  width: 1em;
+  display: inline-block;
+}
+.epsp-field ul.mark-as-completed li div.complete span.tick:before {
+  content: "\f046";
+  color: #00af50;
+}
+.epsp-field ul.mark-as-completed li div.incomplete span.tick:before {
+  content: "\f096";
+  color: #d33;
+}
+.epsp-field ul.mark-as-completed li div.editable {
+  cursor: pointer;
+}
+.epsp-field ul.mark-as-completed li div span.name {
+  display: block;
+  color: #999;
+  font-size: 0.9em;
+  font-style: italic;
+}
+@media (max-width: 991px) {
+  .epsp-field ul.mark-as-completed {
+    margin-left: 1.2em;
+    padding-top: 5px;
+  }
+}
+.epsp-field.epsp-field-textfield,
+.epsp-field.epsp-field-goal {
+  /*margin-left: 2em;*/
+}
+.epsp-field.epsp-field-textfield + .epsp-field-textfield,
+.epsp-field.epsp-field-goal + .epsp-field-textfield,
+.epsp-field.epsp-field-textfield + .epsp-field-goal,
+.epsp-field.epsp-field-goal + .epsp-field-goal {
+  margin-top: 8px;
+}
+.epsp-field.template-field {
+  /*margin-top: 0;*/
+}
+.epsp-field.epsp-field-completabletitle .mark-as-completed {
+  padding-top: 7px;
+}
+.epsp-field .epsp-field-titlearea p {
+  float: left;
+  color: #027499 !important;
+  margin: 0;
+}
+.epsp-field .epsp-field-titlearea p span.title {
+  font-size: inherit;
+  color: inherit;
+  margin: inherit;
+}
+.epsp-field .epsp-field-titlearea p.completable {
+  margin: 0 20px 0 0;
+}
+.epsp-field .completable {
+  float: left;
+  margin: 0 20px 0 0;
+}
+.epsp-field .toggle {
+  cursor: pointer;
+}
+.epsp-field .toggle:before {
+  content: "\f054";
+  font-family: FontAwesome;
+  font-size: 1em;
+  padding-right: 5px;
+  width: 1em;
+  float: left;
+}
+.epsp-field .toggle.open:before {
+  content: "\f078";
+}
+.epsp-field .epsp-field-contentarea {
+  clear: both;
+  padding: .5em;
+  margin: .5em 0 0 20px;
+  background: #f1f4f9;
+}
+.epsp-field .epsp-field-contentarea dl {
+  margin: 0;
+}
+.epsp-field .epsp-field-contentarea dt {
+  float: left;
+  clear: left;
+  width: 150px;
+  text-align: right;
+  font-weight: bold;
+}
+.epsp-field .epsp-field-contentarea dd {
+  margin: 0 0 0 170px;
+  padding: 0 0 .5em 0;
+}
+.epsp-field.epsp-field-textfield .epsp-field-contentarea {
+  padding-left: 1em;
+}
+.toggle-subfields {
+  float: left;
+  cursor: pointer;
+}
+.toggle-subfields span.icon {
+  display: block;
+  float: left;
+}
+.toggle-subfields span.icon:before {
+  content: "\f054";
+  font-family: FontAwesome;
+  font-size: 1em;
+}
+.toggle-subfields.open span.icon:before {
+  content: "\f078";
+}
+.toggle-subfields span.text {
+  display: block;
+  margin-left: 1.2em;
+}
+/**
+ * ePSP field comments
+ */
+.field-feedback .form-row {
+  margin-bottom: 5px;
+}
+.field-feedback .comments {
+  margin-bottom: 1em;
+  max-height: 200px;
+  overflow: auto;
+}
+.field-feedback .comments .field-comment {
+  padding: 5px;
+}
+.field-feedback .comments .field-comment:nth-child(odd) {
+  background: #e6edf3;
+}
+.field-feedback .comments .field-comment:nth-child(even) {
+  background: #F0F4FD;
+}
+.field-feedback .comments .field-comment .detail {
+  overflow: hidden;
+}
+.field-feedback .comments .field-comment .detail.highlight {
+  -webkit-animation: highlight 1.5s;
+  -moz-animation: highlight 1.5s;
+  -o-animation: highlight 1.5s;
+  animation: highlight 1.5s;
+}
+.field-feedback span.mceEditor {
+  width: 100%;
+}
+.columns2 .epsp-field-titlearea p,
+.columns3 .epsp-field-titlearea p {
+  float: none;
+  margin-right: 0;
+}
+.columns2 .epsp-field-titlearea p.completable,
+.columns3 .epsp-field-titlearea p.completable {
+  margin-right: 0;
+}
+.columns2 ul.mark-as-completed,
+.columns3 ul.mark-as-completed {
+  margin-left: 15px;
+  padding-top: 5px;
+}
+.columns2 ul.mark-as-completed li,
+.columns3 ul.mark-as-completed li {
+  /*float: none;*/
+}
+.columns2 .epsp-field-contentarea dt,
+.columns3 .epsp-field-contentarea dt {
+  float: none;
+  width: auto;
+  text-align: left;
+}
+.columns2 .epsp-field-contentarea dd,
+.columns3 .epsp-field-contentarea dd {
+  margin: 0;
+  padding: 0 0 .5em 0;
+}
+.columns2 .toggle-subfields,
+.columns3 .toggle-subfields {
+  float: none;
+}
+.loading-spinner {
+  margin: 4px 0 0 10px;
+  display: inline-block;
+  font-family: FontAwesome;
+  -webkit-animation: spin 1s infinite linear;
+  -moz-animation: spin 1s infinite linear;
+  -o-animation: spin 1s infinite linear;
+  animation: spin 1s infinite linear;
+}
+.loading-spinner:before {
+  content: "\f110";
+}
+@-o-keyframes spin {
+  from {
+    -o-transform: rotate(0deg);
+  }
+  to {
+    -o-transform: rotate(359deg);
+  }
+}
+@-ms-keyframes spin {
+  from {
+    -ms-transform: rotate(0deg);
+  }
+  to {
+    -ms-transform: rotate(360deg);
+  }
+}
+@-moz-keyframes spin {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-o-keyframes highlight {
+  0% {
+    background: #0F77A0;
+  }
+  100% {
+    background: none;
+  }
+}
+@-ms-keyframes highlight {
+  0% {
+    background: #0F77A0;
+  }
+  100% {
+    background: none;
+  }
+}
+@-moz-keyframes highlight {
+  0% {
+    background: #0F77A0;
+  }
+  100% {
+    background: none;
+  }
+}
+@-webkit-keyframes highlight {
+  0% {
+    background: #0F77A0;
+  }
+  100% {
+    background: none;
+  }
+}
+@keyframes highlight {
+  0% {
+    background: #0F77A0;
+  }
+  100% {
+    background: none;
+  }
+}

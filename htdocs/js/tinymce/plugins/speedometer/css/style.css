@@ -1,0 +1,59 @@
+/**
+ * Mahara: Electronic portfolio, weblog, resume builder and social networking
+ * Copyright (C) 2006-2008 Catalyst IT Ltd (http://www.catalyst.net.nz)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @package    mahara
+ * @author     Discendum Ltd
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL
+ * @copyright  (C) 2014 Discendum Ltd http://discendum.com
+ * @copyright  (C) 2006-2008 Catalyst IT Ltd http://catalyst.net.nz
+ *
+ */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    padding: 10px;
+    text-align: center;
+}
+
+p#speedometer-help {
+    margin: 0 0 15px 0;
+}
+
+ul#speedometers {
+    margin: 0 auto;
+    list-style: none;
+}
+
+ul#speedometers li {
+    display: inline-block;
+    margin: 0 10px 0 0;
+}
+
+ul#speedometers li:last-child {
+    margin-right: 0;
+}
+
+ul#speedometers li img {
+    cursor: pointer;
+}
+
+ul#speedometers li img:hover {
+    opacity: .6;
+}

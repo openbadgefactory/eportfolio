@@ -1,0 +1,13 @@
+{
+  "vars": {},
+  "css": [
+    "close.less",
+    "popovers.less",
+    "modals.less"
+  ],
+  "js": [
+    "modal.js",
+    "tooltip.js",
+    "popover.js"
+  ]
+}

@@ -1,0 +1,145 @@
+html { background: none; }
+body { background: none; }
+#top-wrapper { display: none; }
+#footer-wrap { display: none; }
+#container { width: 750px; min-width: 750px; }
+#main-column { padding: 10px; }
+table#main-wrapper { border: none; }
+.onechat { display: none; }
+
+#mainmiddlewrap {
+    box-shadow: none;
+}
+
+#mainmiddle {
+    min-width: 700px;
+    border: none;
+}
+
+#main-column {
+    padding: 0;
+}
+
+.fileupload {
+    display: none;
+}
+
+
+/* tabs for the artefact chooser */
+ul.artefactchooser-tabs {
+  padding: 0 !important;
+  margin: 0;
+  font-weight: bold;
+  list-style: none;
+  font-size: 1em;
+  height: 1%;
+}
+ul.artefactchooser-tabs li {
+  display: inline;
+  padding: 0;
+  line-height: 1.9em;
+  margin: 0 2px 0 0 !important;
+  float: left;
+}
+ul.artefactchooser-tabs li a,
+ul.artefactchooser-tabs li a:link,
+ul.artefactchooser-tabs li a:visited,
+ul.artefactchooser-tabs li a:active {
+  padding: 3px 10px;
+  text-decoration: none;
+  background: #EEEEEE;
+}
+ul.artefactchooser-tabs li.current a,
+ul.artefactchooser-tabs li.current a:link,
+ul.artefactchooser-tabs li.current a:visited
+ul.artefactchooser-tabs li.current a:active {
+  color: #333;
+  text-decoration: none;
+  background: #D1D1D1;
+  padding: 4px 10px 3px 10px;
+  cursor: default;
+}
+ul.artefactchooser-subtabs {
+  margin: 0 0 15px 0 !important;
+  padding: 0 !important;
+  font-size: .9167em;
+  list-style: none;
+}
+ul.artefactchooser-subtabs li {
+  display: inline;
+  padding: 0 10px;
+  margin: 0 !important;
+}
+ul.artefactchooser-subtabs li.current a,
+ul.artefactchooser-subtabs li.current a:link,
+ul.artefactchooser-subtabs li.current a:visited,
+ul.artefactchooser-subtabs li.current a:active {
+  font-weight: bold;
+}
+
+#artefactchooser-body {
+	clear: left;
+	margin-bottom: 5px;
+	padding: 5px;
+}
+
+/* table */
+.maharatable {
+    margin: 0;
+    width: 100%;
+}
+.maharatable thead th {
+	font-size: 1em !important;
+	text-align: left !important;
+}
+.maharatable tbody th {
+	font-size: 1.1667em;
+	text-align: left !important;
+	padding: 3px 0 0 0;
+}
+.maharatable tbody td {
+	padding: 0 0 5px 0;
+}
+.maharatable .filebrowser tbody td {
+	padding: 3px 5px;
+}
+.maharatable tbody td.errmsg {
+	padding: 3px 5px 3px 24px;
+}
+.maharatable #artefactchooser-body table,
+.maharatable #artefactchooser-body table th,
+.maharatable #artefactchooser-body table td {
+	padding: 3px 5px;
+}
+.maharatable #artefactchooser-body .artefactchooser-data,
+.maharatable #artefactchooser-body .artefactchooser-data th,
+.maharatable #artefactchooser-body .artefactchooser-data td {
+	padding: 3px 5px;
+}
+#artefactchooser-body th label {
+	font-size: .9167em;
+}
+.maharatable td label {
+	font-weight: normal;
+}
+.blockconfig-background {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+}
+.fileedittable th {
+	font-size: 1em !important;
+}
+#instconf_artefactid_selectlist,
+#instconf_artefactids_selectlist {
+	margin-bottom: 10px;
+}
+#instconf_artefactid_selectlist td,
+#instconf_artefactids_selectlist td {
+	padding: 3px;
+}
+#instconf_artefactid_selectlist td input.button,
+#instconf_artefactids_selectlist td input.button {
+	font-size: .9167em;
+}
+

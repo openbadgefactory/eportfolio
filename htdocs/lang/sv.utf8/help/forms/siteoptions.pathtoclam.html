@@ -1,0 +1,8 @@
+﻿<h3>Stig till clam</h3>
+<p>Filsystemstigen <code>clamscan</code> eller <code>clamdscan</code> för
+ viruscheck. Det antas, att misslyckande i att köra
+clam betyder att filen behandlas som virus och att karantänkatalogen
+automatiskt installeras av ePortfoliotjänsten.</p>
+<p>P.g.a. säkerhetsorsaker kan denna inställning inte ändras via webben. Du måste
+ändra det i din <tt>config.php</tt> fil på följande vis:<p>
+<p><tt>$cfg->pathtoclam = '/path/to/your/clamscan';</tt></p>
