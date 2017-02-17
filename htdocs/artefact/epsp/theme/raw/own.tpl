@@ -18,8 +18,8 @@
 
     <div class="filter-row filter-horizontal" id="filter-publicity">
         <span class="filter-label">{str tag=show section="artefact.studyjournal"}</span>
-        <button data-value="all" class="active">{str tag=all section="artefact.studyjournal"}</button>
-        <button data-value="private">{str tag=private section="artefact.studyjournal"}</button>
+        <button data-value="all">{str tag=all section="artefact.studyjournal"}</button>
+        <button data-value="private" class="active">{str tag=private section="artefact.studyjournal"}</button>
         <button data-value="published">{str tag=shared section="artefact.studyjournal"}</button>
         <button data-value="public">{str tag=public section="artefact.studyjournal"}</button>
     </div>
