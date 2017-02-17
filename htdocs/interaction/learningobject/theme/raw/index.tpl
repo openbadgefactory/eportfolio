@@ -21,8 +21,8 @@
                 <button id="own" class="own active">{str tag="own" section="interaction.learningobject"}</button>
                 <button id="published">{str tag="sharedinsystem" section="interaction.learningobject"}</button>
             {else}
-                <button id="own">{str tag="own" section="interaction.learningobject"}</button>
                 <button id="published" class="active">{str tag="sharedinsystem" section="interaction.learningobject"}</button>
+                <button id="own">{str tag="own" section="interaction.learningobject"}</button>
             {/if}
             <button id="public">{str tag="sharedinpublic" section="interaction.learningobject"}</button>
             <button id="all" class="all">{str tag="all" section="interaction.learningobject"}</button>

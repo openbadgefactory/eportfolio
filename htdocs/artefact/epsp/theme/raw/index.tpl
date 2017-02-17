@@ -26,11 +26,11 @@
         <div class="filter-row filter-horizontal view-shared">
             <div class="filter-label">{str tag=show section="artefact.epsp"}</div>
             <div class="tag-buttons">
-                <button data-value="all" class="active">{str tag=all section="artefact.studyjournal"}</button>
-                <button data-value="private">{str tag=private section="artefact.epsp"}</button>
+                <button data-value="private" class="active">{str tag=private section="artefact.epsp"}</button>
                 <button data-value="published">{str tag=published section="artefact.epsp"}</button>
                 <button data-value="own">{str tag=owntemplates section="artefact.epsp"}</button>
                 <button data-value="others">{str tag=otherstemplates section="artefact.epsp"}</button>
+                <button data-value="all">{str tag=all section="artefact.studyjournal"}</button>
             </div>
         </div>
     {/if}
