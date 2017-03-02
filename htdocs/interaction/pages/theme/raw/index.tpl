@@ -29,10 +29,10 @@
     <div class="filter-row view-shared filter-horizontal" id="filter-publicity">
         <span class="filter-label">{str tag=show section="interaction.pages"}</span>
         <div class="filter-buttons">
-            <button data-value="all" class="active">{str tag="all" section="interaction.pages"}</button>
-            <button data-value="private">{str tag="notshared" section="interaction.pages"}</button>
+            <button data-value="private" class="active">{str tag="notshared" section="interaction.pages"}</button>
             <button data-value="published">{str tag="sharedinsystem" section="interaction.pages"}</button>
             <button data-value="public">{str tag="sharedinpublic" section="interaction.pages"}</button>
+            <button data-value="all">{str tag="all" section="interaction.pages"}</button>
         </div>
     </div>
         

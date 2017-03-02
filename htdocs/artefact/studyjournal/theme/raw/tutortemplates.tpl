@@ -26,9 +26,9 @@
     
     <div class="filter-row filter-horizontal" id="template-type">
         <span class="filter-label">{str tag=show section="artefact.studyjournal"}</span>
-        <button data-value="all" class="active">{str tag=all section="artefact.studyjournal"}</button>
+        <button data-value="own" class="active">{str tag=owntemplates section="artefact.studyjournal"}</button>
         <button data-value="shared">{str tag=institutiontemplates section="artefact.studyjournal"}</button>
-        <button data-value="own">{str tag=owntemplates section="artefact.studyjournal"}</button>
+        <button data-value="all">{str tag=all section="artefact.studyjournal"}</button>
     </div>
     
     <div class="filter-row sort-by filter-horizontal">

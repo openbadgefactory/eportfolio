@@ -1,2 +1,4 @@
 tags
 htdocs/config.php
+.idea
+.vagrant
