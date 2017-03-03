@@ -1,7 +1,12 @@
 <?php
 
+$authSources = array(
+  'helsinki.mmg.fi' => 'default-sp',
+  'ekampus.mmg.fi' => 'ekampus-sp',
+);
+
 // AuthSource from SimpleSAMLphp
-$authSource = 'default-sp';
+$authSource = $authSources[$_SERVER['SERVER_NAME']];
 
 // Should new users be created automatically?
 $create_user_automatically = false;
