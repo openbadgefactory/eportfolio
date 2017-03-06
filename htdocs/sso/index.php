@@ -25,29 +25,6 @@ $email = $attributes['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name
 $firstname = $attributes['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname'][0];
 $lastname = $attributes['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname'][0];
 
-@session_write_close();
-
-// now - let's continue with the session handling that would normally be done
-// by Maharas init.php
-// the main thin is that it sets the session cookie name back to what it should be
-// session_name(get_config('cookieprefix') . 'mahara');
-// and starts the session again
-
-// ***********************************************************************
-// copied from original init.php
-// ***********************************************************************
-// Only do authentication once we know the page theme, so that the login form
-// can have the correct theming.
-require_once(dirname(dirname(__FILE__)) . '/auth/lib.php');
-$SESSION = Session::singleton();
-$USER    = new LiveUser();
-$THEME   = new Theme($USER);
-// ***********************************************************************
-// END of copied stuff from original init.php
-// ***********************************************************************
-// restart the session for Mahara
-@session_start();
-
 // do the normal user lookup
 $sql = 'SELECT
                 *,
